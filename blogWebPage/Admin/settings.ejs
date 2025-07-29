@@ -1,0 +1,1246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings | KnowYourGovNow</title>
+     <link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-collapse {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 1rem;
+            display: none;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification, .user-profile {
+            position: relative;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .notification i, .user-profile i {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area Styles */
+        .content {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-success {
+            background: var(--success-color);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #00b4d8;
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Settings Sections */
+        .settings-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .settings-section h3 {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* Tables */
+        .settings-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .settings-table th, .settings-table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-table th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .settings-table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        select.form-control {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 16px 12px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0 1rem;
+            }
+
+            .search-bar input {
+                width: 120px;
+                padding-left: 2rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+            }
+
+            .settings-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>KnowYourGovNow</h3>
+                <button class="sidebar-collapse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/Admin/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/categories-tags" >
+                        <i class="fas fa-tags"></i>
+                        <span>Categories & Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/settings" class="active">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/comments">
+                        <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                    </a>
+                <li>
+                    <a href="/Admin/support">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                <li>
+    <a href="/logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+    </a>
+</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                   <div hidden class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div hidden class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/add-image.png" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h2>Settings</h2>
+                </div>
+
+                <!-- Social Links Section -->
+                <div class="settings-section">
+                    <h3>
+                        Social Links
+                        <button class="btn btn-primary" id="addSocialLinkBtn">
+                            <i class="fas fa-plus"></i> Add Social Link
+                        </button>
+                    </h3>
+                    <table class="settings-table">
+                        <thead>
+                            <tr>
+                                <th>Platform</th>
+                                <th>URL</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Facebook</td>
+                                <td>https://facebook.com/yourpage</td>
+                                <td>
+                                    <button class="action-btn edit-social" data-id="1" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-social" data-id="1" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Twitter</td>
+                                <td>https://twitter.com/yourhandle</td>
+                                <td>
+                                    <button class="action-btn edit-social" data-id="2" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-social" data-id="2" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Instagram</td>
+                                <td>https://instagram.com/yourprofile</td>
+                                <td>
+                                    <button class="action-btn edit-social" data-id="3" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-social" data-id="3" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Ads Section -->
+                <div class="settings-section">
+                    <h3>
+                        Advertisement Codes
+                        <button class="btn btn-primary" id="addAdBtn">
+                            <i class="fas fa-plus"></i> Add Ad Code
+                        </button>
+                    </h3>
+                    <table class="settings-table">
+                        <thead>
+                            <tr>
+                                <th>Position</th>
+                                <th>Code Preview</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Header</td>
+                                <td>&lt;script&gt;...&lt;/script&gt;</td>
+                                <td>
+                                    <button class="action-btn edit-ad" data-id="1" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-ad" data-id="1" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sidebar Top</td>
+                                <td>&lt;div class="ad-unit"&gt;...&lt;/div&gt;</td>
+                                <td>
+                                    <button class="action-btn edit-ad" data-id="2" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-ad" data-id="2" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>After Post Content</td>
+                                <td>&lt;iframe src="..."&gt;&lt;/iframe&gt;</td>
+                                <td>
+                                    <button class="action-btn edit-ad" data-id="3" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="action-btn delete delete-ad" data-id="3" title="Delete">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Social Link Modal -->
+    <div class="modal" id="socialLinkModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="socialModalTitle">Add Social Link</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="socialLinkForm">
+                    <input type="hidden" id="socialLinkId">
+                    <div class="form-group">
+                        <label for="socialPlatform">Platform</label>
+                        <select id="socialPlatform" class="form-control" required>
+                            <option value="">Select Platform</option>
+                            <option value="Facebook">Facebook</option>
+                            <option value="Twitter">Twitter</option>
+                            <option value="Instagram">Instagram</option>
+                            <option value="LinkedIn">LinkedIn</option>
+                            <option value="YouTube">YouTube</option>
+                            <option value="Pinterest">Pinterest</option>
+                            <option value="TikTok">TikTok</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="socialUrl">URL</label>
+                        <input type="url" id="socialUrl" class="form-control" 
+                               placeholder="https://example.com/yourprofile" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelSocialBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveSocialBtn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Ad Modal -->
+    <div class="modal" id="adModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="adModalTitle">Add Advertisement</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="adForm">
+                    <input type="hidden" id="adId">
+                    <div class="form-group">
+                        <label for="adPosition">Position</label>
+                        <select id="adPosition" class="form-control" required>
+                            <option value="">Select Position</option>
+                            <option value="Header">Header</option>
+                            <option value="Footer">Footer</option>
+                            <option value="Sidebar Top">Sidebar Top</option>
+                            <option value="Sidebar Bottom">Sidebar Bottom</option>
+                            <option value="Before Post Content">Before Post Content</option>
+                            <option value="After Post Content">After Post Content</option>
+                            <option value="Middle of Post">Middle of Post</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="adCode">Embed Code</label>
+                        <textarea id="adCode" class="form-control" rows="8" 
+                                  placeholder="Paste your ad code here..." required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelAdBtn">Cancel</button>
+                <button class="btn btn-primary" id="saveAdBtn">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Delete Confirmation Modal -->
+    <div class="modal" id="deleteModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="deleteModalTitle">Confirm Delete</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="deleteModalText">Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelDeleteBtn">Cancel</button>
+                <button class="btn btn-primary" id="confirmDeleteBtn">Delete</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function renderSocialLinks() {
+    fetch('/social_links')
+        .then(res => res.json())
+        .then(links => {
+            const tbody = document.querySelector('.settings-table tbody');
+            tbody.innerHTML = '';
+            links.forEach(link => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${link.platform}</td>
+                        <td>${link.url}</td>
+                        <td>
+                            <button class="action-btn edit-social" data-id="${link.id}" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete delete-social" data-id="${link.id}" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+function renderAds() {
+    fetch('/ads')
+        .then(res => res.json())
+        .then(ads => {
+            const tbody = document.querySelectorAll('.settings-table tbody')[1];
+            tbody.innerHTML = '';
+            ads.forEach(ad => {
+                tbody.innerHTML += `
+                    <tr>
+                        <td>${ad.position}</td>
+                        <td>${ad.url}</td>
+                        <td>
+                            <button class="action-btn edit-ad" data-id="${ad.id}" title="Edit">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="action-btn delete delete-ad" data-id="${ad.id}" title="Delete">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        });
+}
+
+// Call these on page load
+renderSocialLinks();
+renderAds();
+        // Toggle sidebar on mobile
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking the collapse button
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+        // Modal functionality
+        const socialLinkModal = document.getElementById('socialLinkModal');
+        const adModal = document.getElementById('adModal');
+        const deleteModal = document.getElementById('deleteModal');
+        
+        // Social Link Modal
+        const addSocialLinkBtn = document.getElementById('addSocialLinkBtn');
+        const cancelSocialBtn = document.getElementById('cancelSocialBtn');
+        const saveSocialBtn = document.getElementById('saveSocialBtn');
+        const socialModalTitle = document.getElementById('socialModalTitle');
+        const socialLinkIdInput = document.getElementById('socialLinkId');
+        const socialPlatformInput = document.getElementById('socialPlatform');
+        const socialUrlInput = document.getElementById('socialUrl');
+
+        // Ad Modal
+        const addAdBtn = document.getElementById('addAdBtn');
+        const cancelAdBtn = document.getElementById('cancelAdBtn');
+        const saveAdBtn = document.getElementById('saveAdBtn');
+        const adModalTitle = document.getElementById('adModalTitle');
+        const adIdInput = document.getElementById('adId');
+        const adPositionInput = document.getElementById('adPosition');
+        const adCodeInput = document.getElementById('adCode');
+
+        // Delete Modal
+        const cancelDeleteBtn = document.getElementById('cancelDeleteBtn');
+        const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+        const deleteModalTitle = document.getElementById('deleteModalTitle');
+        const deleteModalText = document.getElementById('deleteModalText');
+
+        // Open modals
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modals
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        function setupModalCloseOnOutsideClick(modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        }
+
+        setupModalCloseOnOutsideClick(socialLinkModal);
+        setupModalCloseOnOutsideClick(adModal);
+        setupModalCloseOnOutsideClick(deleteModal);
+
+        // Social Link Modal Functions
+        addSocialLinkBtn.addEventListener('click', function() {
+            socialModalTitle.textContent = 'Add Social Link';
+            socialLinkIdInput.value = '';
+            socialPlatformInput.value = '';
+            socialUrlInput.value = '';
+            openModal(socialLinkModal);
+        });
+
+        // Edit Social Link buttons
+       
+
+        cancelSocialBtn.addEventListener('click', function() {
+            closeModal(socialLinkModal);
+        });
+
+       saveSocialBtn.addEventListener('click', function() {
+    const id = socialLinkIdInput.value;
+    const platform = socialPlatformInput.value;
+    const url = socialUrlInput.value;
+
+    if (platform && url) {
+        const payload = { platform, url };
+        let endpoint = '/social_links';
+        let method = 'POST';
+        if (id) {
+            endpoint = `/social_links/${id}`;
+            method = 'PATCH';
+        }
+        fetch(endpoint, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            showToast(data.message);
+            closeModal(socialLinkModal);
+            renderSocialLinks();
+        })
+        .catch(() => showToast('Error saving social link', 'danger'));
+    } else {
+        showToast('Please fill in all fields', 'danger');
+    }
+});
+
+        // Ad Modal Functions
+        addAdBtn.addEventListener('click', function() {
+            adModalTitle.textContent = 'Add Advertisement';
+            adIdInput.value = '';
+            adPositionInput.value = '';
+            adCodeInput.value = '';
+            openModal(adModal);
+        });
+
+    
+        cancelAdBtn.addEventListener('click', function() {
+            closeModal(adModal);
+        });
+
+saveAdBtn.addEventListener('click', function() {
+    const id = adIdInput.value;
+    const position = adPositionInput.value;
+    const url = adCodeInput.value;
+
+    if (position && url) {
+        const payload = { position, url };
+        let endpoint = '/ads';
+        let method = 'POST';
+        if (id) {
+            endpoint = `/ads/${id}`;
+            method = 'PATCH';
+        }
+        fetch(endpoint, {
+            method: method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+        })
+        .then(res => res.json())
+        .then(data => {
+            showToast(data.message);
+            closeModal(adModal);
+            renderAds();
+        })
+        .catch(() => showToast('Error saving ad', 'danger'));
+    } else {
+        showToast('Please fill in all fields', 'danger');
+    }
+});
+        // Delete Modal Functions
+        let currentDeleteType = ''; // 'social' or 'ad'
+        let currentDeleteId = '';
+
+       
+        cancelDeleteBtn.addEventListener('click', function() {
+            closeModal(deleteModal);
+        });
+
+       confirmDeleteBtn.addEventListener('click', function() {
+    if (currentDeleteType === 'social') {
+        fetch(`/social_links/${currentDeleteId}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message);
+                closeModal(deleteModal);
+                renderSocialLinks();
+            })
+            .catch(() => showToast('Error deleting social link', 'danger'));
+    }else if (currentDeleteType === 'ad') {
+        fetch(`/ads/${currentDeleteId}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message);
+                closeModal(deleteModal);
+                renderAds();
+            })
+            .catch(() => showToast('Error deleting ad', 'danger'));
+    }
+    
+});
+
+document.addEventListener('click', function(e) {
+    // Edit Social
+    if (e.target.closest('.edit-social')) {
+        const btn = e.target.closest('.edit-social');
+        const row = btn.closest('tr');
+        const id = btn.getAttribute('data-id');
+        const platform = row.cells[0].textContent;
+        const url = row.cells[1].textContent;
+        socialModalTitle.textContent = 'Edit Social Link';
+        socialLinkIdInput.value = id;
+        socialPlatformInput.value = platform;
+        socialUrlInput.value = url;
+        openModal(socialLinkModal);
+    }
+    // Delete Social
+    if (e.target.closest('.delete-social')) {
+        const btn = e.target.closest('.delete-social');
+        const row = btn.closest('tr');
+        const id = btn.getAttribute('data-id');
+        const platform = row.cells[0].textContent;
+        currentDeleteType = 'social';
+        currentDeleteId = id;
+        deleteModalTitle.textContent = 'Delete Social Link';
+        deleteModalText.textContent = `Are you sure you want to delete the ${platform} link? This action cannot be undone.`;
+        openModal(deleteModal);
+    }
+    // Edit Ad
+    if (e.target.closest('.edit-ad')) {
+        const btn = e.target.closest('.edit-ad');
+        const row = btn.closest('tr');
+        const id = btn.getAttribute('data-id');
+        const position = row.cells[0].textContent;
+        const url = row.cells[1].textContent;
+        adModalTitle.textContent = 'Edit Advertisement';
+        adIdInput.value = id;
+        adPositionInput.value = position;
+        adCodeInput.value = url;
+        openModal(adModal);
+    }
+    // Delete Ad
+    if (e.target.closest('.delete-ad')) {
+        const btn = e.target.closest('.delete-ad');
+        const row = btn.closest('tr');
+        const id = btn.getAttribute('data-id');
+        const position = row.cells[0].textContent;
+        currentDeleteType = 'ad';
+        currentDeleteId = id;
+        deleteModalTitle.textContent = 'Delete Advertisement';
+        deleteModalText.textContent = `Are you sure you want to delete the ad in ${position} position? This action cannot be undone.`;
+        openModal(deleteModal);
+    }
+});
+
+        // Responsive sidebar behavior
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+  <script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+</body>
+</html>

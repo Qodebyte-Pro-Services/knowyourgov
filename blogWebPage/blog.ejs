@@ -1,0 +1,1014 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Know Your Gov Now</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+	<!-- bootstrap CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="all">
+	<!-- carousel CSS -->
+	<link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" media="all">
+	<!-- animate CSS -->
+	<link rel="stylesheet" href="/css/animate.css" type="text/css" media="all">
+	<!-- animated-text CSS -->
+	<link rel="stylesheet" href="/css/animated-text.css" type="text/css" media="all">
+	<!-- font-awesome CSS -->
+	<link rel="stylesheet" href="/css/all.min.css" type="text/css" media="all">
+	<!-- font-flaticon CSS -->
+	<link rel="stylesheet" href="/css/flaticon.css" type="text/css" media="all">
+	<!-- theme-default CSS -->
+	<link rel="stylesheet" href="/css/theme-default.css" type="text/css" media="all">
+	<!-- meanmenu CSS -->
+	<link rel="stylesheet" href="/css/meanmenu.min.css" type="text/css" media="all">
+	<!-- transitions CSS -->
+	<link rel="stylesheet" href="/css/owl.transitions.css" type="text/css" media="all">
+	<!-- venobox CSS -->
+	<link rel="stylesheet" href="/venobox.css" type="text/css" media="all">
+	<!-- bootstrap icons -->
+	<link rel="stylesheet" href="/css/bootstrap-icons.css" type="text/css" media="all">
+	<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+	<!-- ScrollCue CSS -->
+	<link rel="stylesheet" href="/css/scrollCue.css" type="text/css" media="all">
+	<!-- responsive CSS -->
+	<link rel="stylesheet" href="/css/responsive.css" type="text/css" media="all">
+	<!-- modernizr js -->
+	<script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+
+		<style>
+			.toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+		.pawercast_menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  margin-top: 4	px;
+  padding: 0;
+  list-style: none;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu {
+  display: block;
+  border-top: 3px solid #1e2736;
+}
+.pawercast_menu .dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.pawercast_menu .dropdown-menu li:hover {
+ color: white;
+  background: #e3e4e6;
+}
+.pawercast_menu .dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu,
+.pawercast_menu .dropdown-menu:hover {
+  display: block;
+}
+.mobile-dropdown-menu {
+  background: #f9f9f9;
+  padding-left: 20px;
+}
+.mobile-dropdown .accordion-toggle {
+  cursor: pointer;
+  margin-left: 8px;
+}
+	</style>
+</head>
+
+<body>
+
+	<!-- Loder Start -->
+	<div class="loader-wrapper">
+		<div class="loader"></div>
+		<div class="loder-section left-section"></div>
+		<div class="loder-section right-section"></div>
+	</div>
+	<!-- Loder End -->
+
+	<!--==================================================-->
+	<!-- Start pawercast Main Menu Area -->
+	<!--==================================================-->
+		<div id="sticky-header" style="background-color: #1e2736;" class="pawercast_nav_manu align-items-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3">
+					<div class="logo">
+						<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="main_menu">
+						<nav class="pawercast_menu">
+							<ul class="nav_scroll">
+								<li><a href="/">Home</a></li>							
+								<li><a href="/about">About Us</a></li>							
+								<li class="dropdown">
+								<a href="/blog">Blog</a>
+								<ul class="dropdown-menu nav_scroll"  id="desktop-categories-menu">
+								
+									 <span class="categories-separator"></span>
+								</ul>
+								</li>
+								<li><a href="/contact">Contact</a></li>
+							</ul>
+							
+						</nav>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- End pawercast Main Menu Area -->
+	<!--==================================================-->
+
+	<!-- pawercast Mobile Menu Area -->
+	<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none ">
+		<div class="mobile-menu">
+			<nav class="pawercast_menu">
+				<ul class="nav_scroll">
+								<li><a href="/">Home</a></li>							
+								<li><a href="/about">About Us</a></li>
+								<li class="mobile-dropdown">
+								<a href="/blog">Blog <span class="accordion-toggle">&#9660;</span></a>
+								<ul class="mobile-dropdown-menu"  id="mobile-categories-menu"  style="display: none;">
+									 <span class="categories-separator"></span>
+								</ul>
+								</li>
+								<li><a href="/contact">Contact Us</a></li>
+								
+							</ul>
+			</nav>
+		</div>
+	</div>
+	<!--=======
+	<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none ">
+		<div class="mobile-menu">
+			<nav class="pawercast_menu">
+				<ul class="nav_scroll">
+					<li><a href="/">Home</a></li>							
+					<li><a href="#">Page</a>
+						<ul class="sub-menu">
+							<li><a href="/about">About Us</a></li>					
+							<li><a href="team.html">Our Team</a></li>
+							<li><a href="podcast.html">Episode List Standard</a></li>
+							<li><a href="podcast-2.html">Episode List Basic</a></li>
+							<li><a href="podcast-3.html">Episode List Excerpt</a></li>
+							<li><a href="/contact">Contact Us</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Podcast</a>
+						<ul class="sub-menu">
+							<li><a href="podcast.html">Episode List Standard</a></li>
+							<li><a href="podcast-2.html">Episode List Basic</a></li>
+							<li><a href="podcast-3.html">Episode List Excerpt</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="/blog">Blog Single</a></li>
+							<li><a href="/blog-details">Blog Details</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Shop</a>
+						<ul class="sub-menu">
+							<li><a href="shop.html">Shop</a></li>
+							<li><a href="shop-details.html">Shop Details</a></li>
+							<li><a href="cart.html">Shopping Cart</a></li>
+							<li><a href="checkout.html">Checkout</a></li>
+							<li><a href="my-account.html">My Account</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- End pawercast Main Menu Area -->
+	<!--==================================================-->
+
+	<!--==================================================-->
+	<!--Start breadcumb Section -->
+	<!--===================================================-->
+	<!-- <div class="breadcumb-area d-flex align-items-center">
+		<div class="container">
+			<div class="row d-flex align-items-center">
+				<div class="col-lg-12">
+					<div class="breadcumb-content">
+						<h1>Blog </h1>
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li>Blog Sidebar</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!--==================================================-->
+	<!--End breadcumb Section -->
+	<!--===================================================-->
+
+
+	<!--==================================================-->
+	<!-- START BLOG  Section -->
+	<!--===================================================-->
+	<div class="blog-section page_two">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="row" id="posts-list"></div>	
+					<div id="pagination"></div>
+				</div>
+				
+				<div class="col-md-12 col-lg-4">
+					<div class="sidber" data-cue="zoomIn">
+						<div class="widget-items-search style_two">
+							<form action="#" method="get">
+								<input type="text" class="src-input-box" placeholder="Search Here" name="s" value=""
+									title="src-input-box">
+								<button class="src-icon" type="submit">
+									<i class="fas fa-search"></i>
+								</button>
+							</form>
+						</div>	
+						<div class="details-about">
+							<h6>About:</h6>
+							<p>From fresh trends to timeless aesthetics,
+								explore the most creative sources to spark your next design breakthrough.</p>
+						</div>				
+						<div class="widget-items style_two">
+							<div class="widget-title">
+								<h2>Categories</h2>
+							</div>
+							<div class="catagory-item style_two">
+								<ul id="sidebar-categories"></ul>
+							</div>
+						</div>
+						
+						<div class="widget-items style_two upper">
+							<div class="widget-title">
+								<h2>Tag Cloud</h2>
+							</div>
+							<div class="tag-item" id="sidebar-tags"></div>
+						</div>
+						<div class="widget-social">
+    <h5>Subscribe:</h5>
+    <ul id="social-links-list"></ul>
+</div>
+
+					
+
+					<div class="widget-items upp" data-cue="zoomIn" id="recent-posts-widget">
+						<div class="widget-title">
+							<h2>Recent Posts</h2>
+						</div>
+							<div class="widget-recent-post d-flex">
+							<div class="rpost-thumb">
+								<a href="#"><img src="/images/resource/post1.png" alt="post thumb"></a>
+							</div>
+							<div class="rpost-content">
+								<div class="rpost-title">
+									<a href="/blog-details">
+										<h4>Most Project with Your Software</h4>
+									</a>
+									<span>January 01, 2023</span>
+								</div>
+							</div>
+						</div>
+						<div class="widget-recent-post d-flex hr-3" data-cue="zoomIn">
+							<div class="rpost-thumb">
+								<a href="#"><img src="/images/resource/post2.png" alt="post thumb"></a>
+							</div>
+							<div class="rpost-content">
+								<div class="rpost-title">
+									<a href="/blog-details">
+										<h4>You have a Great Business Idea? </h4>
+									</a>
+									<span>february 12, 2023</span>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+					</div>				
+				</div>			
+			</div>			
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- START BLOG  Section -->
+	<!--===================================================-->
+	<div class="viewer-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12" data-cue="zoomIn">
+					<div class="section-title text-center">
+					<h1>Latest Blog Posts</h1>
+					<p class="section-description">Explore our newest content — packed with fresh perspectives,
+						 useful advice, and inspiring ideas to keep you informed and inspired.</p>
+
+					</div>
+				</div>
+			</div>
+		<div class="row" id="recent-posts-grid"></div>	
+		</div>			
+	</div>
+	
+
+
+
+
+	<!--==================================================-->
+	<!-- Start pawercast Footer Area -->
+	<!--==================================================-->
+		<div class="footer-area style_two">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-logo">
+							<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+						</div>
+						<h3 hidden class="footer-widget-about"><a href="/about">About</a></h3>
+						<p hidden class="footer-desc">Morbi pharetra, eros sed euismod hours purus
+							pellentesque, nulla risus lobortis nullar risus
+							purus, quis maximus.</p>
+							
+						
+						<div class="footer-widget-social-icon   ">
+							<ul id="footer-social-links">
+								
+							</ul>
+						</div>
+						<div class="footer_shape dance">
+							<img src="/images/resource/fotter-shape.png" alt="">
+						</div>
+					</div>					
+				</div>			
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-widget-titel">
+							<h4>Quick links</h4>
+						</div>
+						<div class="footer-widget-menu">
+							<ul>
+								<li ><a href="/"><i class="flaticon flaticon-right-arrow"></i>Home</a></li>
+								<li><a href="/about"><i class="flaticon flaticon-right-arrow"></i>About</a></li>
+								<li class="active_style_one"><a href="/blog"><i class="flaticon flaticon-right-arrow"></i>Blog</a></li>
+								<li><a href="/contact"><i class="flaticon flaticon-right-arrow"></i>Contact</a></li>						
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">	
+						<div class="footer-widget-titel">
+							<h4>Contact Info</h4>
+						</div>				
+						<div class="footer-widget-menu">
+							<ul>
+								<p class="footer-desc">Questions, feedback, or just need a little encouragement? Our inbox is always open.</p>
+							</ul>
+						</div>
+							<div class="footer-widget-contact">
+							<div class="footer-didget-icon">
+								<span><i class="bi bi-envelope"></i> </span>
+							</div>
+							<div class="footer-widget-contact">
+								<p>example@gmail com</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- newsletter area -->
+	<div hidden class="newsletter-area">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 col-md-6">
+					<div class="news-icon-item">
+						<span><i class="bi bi-envelope"></i> </span>
+						<div class="newsletter-title">
+							<h1>Subscribe Our Newsletter</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="main-form">
+
+						<form action="https://formspree.io/f/myyleorq" method="POST" id="dreamit-form">
+							<div class="subscribe_form">
+								<input type="email" name="email" id="email" class="form-control" required="" data-error="Please enter your email" placeholder="Your Email Address...">
+									<button type="submit" class="btn">Subscribe</button>
+							</div>
+							
+						</form>
+						<div id="status"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer bottom area -->
+	<div class="footer-bottom-area ">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer-bottom-content text-center">
+						<div class="footer-bottom-content-copy">
+							<p>Copyright 2024 © KnowYourGovNow all rights reserved. By Qodebyte</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- Start pawercast Footer Area -->
+	<!--==================================================-->
+
+
+
+	<!--==================================================-->
+	<!-- Start scrollup section Area -->
+	<!--==================================================-->
+	<div class="prgoress_indicator">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+		</svg>
+	</div>
+	<!--==================================================-->
+	<!-- Start scrollup section Area -->
+	<!--==================================================-->
+
+	<!--==================================================-->
+	<!-- Start Curser Section Here -->
+	<!--==================================================-->
+	<div class="curser"></div>
+	<div class="curser2"></div>
+	<!--==================================================-->
+	<!-- Ends Curser Section Here -->
+	<!--==================================================-->
+
+
+	<!-- jquery js -->
+	<script src="/js/vendor/jquery-3.6.2.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- carousel js -->
+	<script src="/js/owl.carousel.min.js"></script>
+	<!-- counterup js -->
+	<script src="/js/jquery.counterup.min.js"></script>
+	<!-- waypoints js -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- imagesloaded js -->
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<!-- venobox js -->
+	<script src="/venobox.js"></script>
+	<!-- venobox min js -->
+	<script src="/venobox.min.js"></script>
+	<!-- isotope js -->
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<!-- jquery meanmenu js -->
+	<script src="/js/jquery.meanmenu.js"></script>
+	<!-- jquery scrollup js -->
+	<script src="/js/jquery.scrollUp.js"></script>
+	<!-- theme js -->
+	<script src="/js/theme.js"></script>
+	<!-- barfiller -->
+	<script src="/js/jquery.barfiller.js"></script>
+	<script src="/js/scrollCue.min.js"></script>
+			<script>
+document.querySelectorAll('.mobile-dropdown .accordion-toggle').forEach(function(toggle) {
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    var submenu = this.parentElement.nextElementSibling;
+    if (submenu.style.display === "block") {
+      submenu.style.display = "none";
+    } else {
+      submenu.style.display = "block";
+    }
+  });
+});
+</script>
+		<script>
+fetch('/categories_user')
+  .then(res => res.json())
+  .then(categories => {
+    let categoryLinks = '';
+    categories.forEach(cat => {
+      categoryLinks += `<li><a href="/blog?id=${cat.id}&slug=${encodeURIComponent(cat.slug)}">${cat.name}</a></li>`;
+    });
+
+    const desktopMenu = document.getElementById('desktop-categories-menu');
+    if (desktopMenu) {
+      const sep = desktopMenu.querySelector('.categories-separator');
+      if (sep) {
+        sep.insertAdjacentHTML('afterend', categoryLinks);
+      }
+    }
+
+    const mobileMenu = document.getElementById('mobile-categories-menu');
+    if (mobileMenu) {
+      const sep = mobileMenu.querySelector('.categories-separator');
+      if (sep) {
+        sep.insertAdjacentHTML('afterend', categoryLinks);
+      }
+    }
+  });
+</script>
+   <script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+
+
+<script>
+fetch('/posts?page=1&limit=3')
+  .then(res => res.json())
+  .then(data => {
+   const published = (data.posts || []).filter(p => p.status === 'publish');
+    const grid = document.getElementById('recent-posts-grid');
+	 if (!grid) return;  
+    grid.innerHTML = '';
+	if (published.length === 0) {
+      grid.innerHTML = `
+        <div class="col-12 text-center py-5">
+          <h4>No published news yet.</h4>
+        </div>`;
+      return;                       
+    }
+published.forEach(post => {
+  const postUrl = encodeURIComponent(`${window.location.origin}/blog-details?id=${post.id}&slug=${post.slug}`);
+  const postTitle = encodeURIComponent(post.title);
+
+  grid.innerHTML += `
+    <div class="col-lg-4 col-md-6" data-cue="zoomIn">
+      <div class="viewer-item">
+        <div class="viewer-thumb">
+          <img src="${post.feature_image || '/images/resource/default.png'}" alt="">
+        </div>
+        <div class="viewer-content">
+          <p class="meta_blog">${post.author_name} <span>${new Date(post.created_at).toLocaleDateString()}</span></p>
+          <h3 class="blog-title"><a href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">${post.title}</a></h3>
+          <a class="blog_btn" href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">Read more</a>
+          <div class="viewer-social">
+            <div class="viewer-social-icon">
+              <span>Share <i class="bi bi-share"></i></span>
+            </div>
+            <div class="social-icon">
+              <ul>
+                <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://pinterest.com/pin/create/button/?url=${postUrl}&description=${postTitle}" target="_blank" title="Share on Pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=${postUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="https://twitter.com/intent/tweet?url=${postUrl}&text=${postTitle}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+				<li><a href="https://api.whatsapp.com/send?text=${postTitle}%20${postUrl}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+});
+
+    if (window.scrollCue && typeof scrollCue.update === 'function') {
+      scrollCue.update();
+    }
+  });
+  
+</script>
+
+
+	<script>
+function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+let currentPage = 1;
+let currentCategory = getQueryParam('id');
+let currentTag = getQueryParam('tag');
+let currentSearch = getQueryParam('s');
+
+function stripHtml(html) {
+    return html.replace(/<[^>]+>/g, '');
+}
+
+function renderPosts(posts, isCategoryPage) {
+	  posts = posts.filter(p => p.status === 'publish');
+    const postsList = document.getElementById('posts-list');
+    postsList.innerHTML = '';
+	 if (posts.length === 0) {
+        postsList.innerHTML = `
+            <div class="col-12 text-center py-5">
+                <h4>No posts yet.</h4>
+            </div>`;
+        return;
+    }
+
+    const featured = posts.find(p => p.is_featured == 1);
+    if (featured && isCategoryPage) {
+		const postUrl = encodeURIComponent(`${window.location.origin}/blog-details?id=${featured.id}&slug=${featured.slug}`);
+const postTitle = encodeURIComponent(featured.title);
+        postsList.innerHTML += `
+        <div class="col-lg-12" data-cue="zoomIn">
+            <div class="viewer-item blog-item style_two">
+                <div class="blog_thumb">
+                    <img src="${featured.feature_image || '/images/resource/blog7.png'}" alt="">
+                </div>
+                <div class="viewer-content ">
+                    <p class="meta_blog">${featured.author_name || ''} <span>${new Date(featured.created_at).toLocaleDateString()}</span></p>
+                    <h3 class="blog-title"><a href="/blog-details?id=${featured.id}&slug=${encodeURIComponent(featured.slug)}">${featured.title}</a></h3>
+                  <p>${featured.content ? stripHtml(featured.content).substring(0, 150) + '...' : ''}</p>
+                    <a class="blog_btn" href="/blog-details?id=${featured.id}&slug=${encodeURIComponent(featured.slug)}">Read more</a>
+					<div class="viewer-social">
+                        <div class="viewer-social-icon">
+                            <span>Share <i class="bi bi-share"></i></span>
+                        </div>
+                        <div class="social-icon">
+                             <ul>
+								<li><a href="https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+								<li><a href="https://pinterest.com/pin/create/button/?url=${postUrl}&description=${postTitle}" target="_blank" title="Share on Pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+								<li><a href="https://www.facebook.com/sharer/sharer.php?u=${postUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="https://twitter.com/intent/tweet?url=${postUrl}&text=${postTitle}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="https://api.whatsapp.com/send?text=${postTitle}%20${postUrl}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+							</ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    }
+    // Render other posts
+    posts.filter(p => !isCategoryPage || p.is_featured != 1).forEach(post => {
+		const postUrl = encodeURIComponent(`${window.location.origin}/blog-details?id=${post.id}&slug=${post.slug}`);
+  		const postTitle = encodeURIComponent(post.title);
+        postsList.innerHTML += `
+        <div class="${isCategoryPage ? 'col-lg-6 col-md-6' : 'col-lg-6 col-md-6'}" data-cue="zoomIn">
+            <div class="viewer-item">
+                <div class="viewer-thumb">
+                    <img src="${post.feature_image || '/images/resource/blog7.png'}" alt="">
+                </div>
+                <div class="viewer-content">
+                    <p class="meta_blog">${post.author_name || ''} <span>${new Date(post.created_at).toLocaleDateString()}</span></p>
+                    <h3 class="blog-title"><a href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">${post.title}</a></h3>
+                    <p>${post.content ? stripHtml(post.content).substring(0, 100) + '...' : ''}</p>
+                    <a class="blog_btn" href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">Read more</a>
+                    <div class="viewer-social">
+                        <div class="viewer-social-icon">
+                            <span>Share <i class="bi bi-share"></i></span>
+                        </div>
+                        <div class="social-icon">
+                             <ul>
+                <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+                <li><a href="https://pinterest.com/pin/create/button/?url=${postUrl}&description=${postTitle}" target="_blank" title="Share on Pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+                <li><a href="https://www.facebook.com/sharer/sharer.php?u=${postUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a></li>
+				<li><a href="https://twitter.com/intent/tweet?url=${postUrl}&text=${postTitle}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+				<li><a href="https://api.whatsapp.com/send?text=${postTitle}%20${postUrl}" target="_blank"><i class="fab fa-whatsapp"></i></a></li>
+              </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+    });
+	if (window.scrollCue && typeof scrollCue.update === 'function') {
+    scrollCue.update();
+}
+}
+
+function renderPagination(totalPages) {
+    const pag = document.getElementById('pagination');
+    pag.innerHTML = '';
+    if (totalPages <= 1) return;
+    for (let i = 1; i <= totalPages; i++) {
+        pag.innerHTML += `<button class="page-btn${i === currentPage ? ' active' : ''}" data-page="${i}">${i}</button>`;
+    }
+    document.querySelectorAll('.page-btn').forEach(btn => {
+        btn.onclick = function() {
+            currentPage = parseInt(this.dataset.page);
+            loadPosts();
+        };
+    });
+}
+
+function loadPosts() {
+    let url = '';
+    let isCategoryPage = false;
+  if (currentTag) {
+    url = `/posts/tag/${currentTag}`;
+} else if (currentCategory) {
+    url = `/posts/category/${currentCategory}`;
+    isCategoryPage = true;
+} else if (currentSearch) {
+        url = `/posts?s=${encodeURIComponent(currentSearch)}&page=${currentPage}`;
+    } else {
+        url = `/posts?page=${currentPage}`;
+    }
+    fetch(url)
+        .then(res => res.json())
+        .then(data => {
+            let posts = data.posts || data; 
+            renderPosts(posts, isCategoryPage);
+            renderPagination(data.totalPages || 1);
+        });
+}
+
+// Sidebar categories
+fetch('/categories_user')
+    .then(res => res.json())
+    .then(categories => {
+        const ul = document.getElementById('sidebar-categories');
+        ul.innerHTML = '';
+        categories.forEach(cat => {
+            ul.innerHTML += `<li><a href="/blog?id=${cat.id}&slug=${encodeURIComponent(cat.slug)}">${cat.name}</a></li>`;
+        });
+    });
+
+// Sidebar tags
+fetch('/tags')
+    .then(res => res.json())
+    .then(tags => {
+        const tagDiv = document.getElementById('sidebar-tags');
+        tagDiv.innerHTML = '';
+        tags.forEach(tag => {
+            tagDiv.innerHTML += `<a href="/blog?tag=${tag.tag_id}&slug=${encodeURIComponent(tag.slug)}">${tag.name}</a> `;
+        });
+    });
+
+// Search form
+document.querySelector('form[action="#"]').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const s = this.querySelector('input[name="s"]').value;
+    window.location.href = `/blog?s=${encodeURIComponent(s)}`;
+});
+
+// Initial load
+loadPosts();
+</script>
+	<script>
+fetch('/posts?page=1&limit=5')
+  .then(res => res.json())
+  .then(data => {
+     const posts = data.posts.filter(post => post.status === 'publish'); 
+    const container = document.getElementById('recent-posts-widget');
+    if (!container) return;
+
+
+
+    const widgetTitle = container.querySelector('.widget-title');
+    container.innerHTML = '';
+	if (posts.length === 0) {
+	  container.innerHTML = '<p>No recent posts available.</p>';
+	  return;
+	}
+
+    if (widgetTitle) {
+      container.appendChild(widgetTitle);
+    }
+
+    posts.forEach((post, index) => {
+      const postElement = document.createElement('div');
+      postElement.className = `widget-recent-post d-flex${index > 0 ? ' hr-3' : ''}`;
+      postElement.setAttribute('data-cue', 'zoomIn');
+      
+      postElement.innerHTML = `
+        <div class="rpost-thumb">
+          <a href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">
+            <img src="${post.feature_image || '/images/resource/post' + (index + 1) + '.png'}" alt="post thumb">
+          </a>
+        </div>
+        <div class="rpost-content">
+          <div class="rpost-title">
+            <a href="/blog-details?id=${post.id}&slug=${encodeURIComponent(post.slug)}">
+              <h4>${post.title.length > 40 ? post.title.slice(0, 37) + '...' : post.title}</h4>
+            </a>
+            <span>${new Date(post.created_at).toLocaleDateString(undefined, {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}</span>
+          </div>
+        </div>
+      `;
+      
+      container.appendChild(postElement);
+    });
+	if (window.scrollCue && typeof scrollCue.update === 'function') {
+    scrollCue.update();
+}
+  })
+  .catch(err => console.error('Failed to fetch posts:', err));
+</script>
+
+<script>
+fetch('/social_links')
+  .then(res => res.json())
+  .then(socialLinks => {
+    const icons = {
+      facebook: 'fab fa-facebook-f',
+      twitter: 'fab fa-twitter',
+      linkedin: 'fab fa-linkedin-in',
+      instagram: 'fab fa-instagram',
+      youtube: 'fab fa-youtube',
+      whatsapp: 'fab fa-whatsapp',
+      telegram: 'fab fa-telegram-plane',
+      github: 'fab fa-github',
+	  tiktok: 'fab fa-tiktok',
+
+    };
+    const ul = document.getElementById('social-links-list');
+    ul.innerHTML = '';
+    socialLinks.forEach(s => {
+      const icon = icons[s.platform.toLowerCase()] || 'fas fa-link';
+      ul.innerHTML += `
+        <li>
+          <a href="${s.url || '#'}" target="_blank" rel="noopener">
+            <i class="${icon}"></i>
+          </a>
+        </li>
+      `;
+    });
+  })
+  .catch(() => {
+    const ul = document.getElementById('social-links-list');
+	ul.innerHTML = '<li><a href="#"><i class="fas fa-link"></i></a></li>';
+	showToast('Failed to load social links', 'danger');
+  });
+</script>
+
+
+<script>
+fetch('/social_links')
+  .then(res => res.json())
+  .then(socialLinks => {
+    const icons = {
+      facebook: 'fab fa-facebook-f',
+      twitter: 'fab fa-twitter',
+      linkedin: 'fab fa-linkedin-in',
+      instagram: 'fab fa-instagram',
+      youtube: 'fab fa-youtube',
+      whatsapp: 'fab fa-whatsapp',
+      telegram: 'fab fa-telegram-plane',
+      github: 'fab fa-github',
+	  tiktok: 'fab fa-tiktok',
+
+    };
+    const ul = document.getElementById('footer-social-links');
+    ul.innerHTML = '';
+    socialLinks.forEach(s => {
+      const icon = icons[s.platform.toLowerCase()] || 'fas fa-link';
+      ul.innerHTML += `
+        <li>
+          <a href="${s.url || '#'}" target="_blank" rel="noopener">
+            <i class="${icon}"></i>
+          </a>
+        </li>
+      `;
+    });
+  })
+  .catch(() => {
+    const ul = document.getElementById('footer-social-links');
+	ul.innerHTML = '<li><a href="#"><i class="fas fa-link"></i></a></li>';
+	showToast('Failed to load social links', 'danger');
+  });
+</script>
+</body>
+
+</html>

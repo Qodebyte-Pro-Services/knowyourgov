@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog Posts Management </title>
+     <link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+        
+        .sidebar-menu span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-collapse {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 1rem;
+            display: none;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification, .user-profile {
+            position: relative;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .notification i, .user-profile i {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area Styles */
+        .content {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Posts Table */
+        .posts-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-publish {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .status-draft {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .status-pending {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        #post-table tr { cursor: pointer; }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 38px;
+            padding: 0.3rem;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            padding: 0 0.5rem;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.3rem;
+        }
+
+        .featured-image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .featured-image-preview.active {
+            display: block;
+        }
+
+        .image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-upload i {
+            font-size: 2rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        .image-upload p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            margin-right: 0.5rem;
+        }
+
+       
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0 1rem;
+            }
+
+            .search-bar input {
+                width: 120px;
+                padding-left: 2rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+       
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>KnowYourGovNow</h3>
+                <button class="sidebar-collapse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/Admin/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/posts" class="active">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/categories-tags">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories & Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Admin/comments">
+                        <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Admin/support">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                <li>
+    <a href="/logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+    </a>
+</li>
+            </ul>
+        </div>
+
+ 
+        <div class="main-content">
+          
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                  <div hidden class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div hidden class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/add-image.png" alt="User">
+                    </div>
+                </div>
+            </header>
+
+          
+            <div class="content">
+                <div class="page-title">
+                    <h2>Blog Posts</h2>
+                    <button class="btn btn-primary" id="addPostBtn">
+                        <i class="fas fa-plus"></i> Add New Post
+                    </button>
+                </div>
+
+
+               
+            
+                <div class="posts-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Views</th>
+                                <th>Author</th>
+                                <th>Categories</th>
+                                <th>Tags</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="post-table">
+                            <tr>
+                                <td>How to Build a Responsive Dashboard</td>
+                                <td>Admin</td>
+                                <td>Web Design, Development</td>
+                                <td>UI, Dashboard</td>
+                                <td><span class="status-badge status-published">Published</span></td>
+                                <td>2023-06-15</td>
+                                <td>
+                                    <button class="action-btn" title="View"><i class="fas fa-eye"></i></button>
+                                    <a href="/Admin/post-detail" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <button class="action-btn delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>10 Tips for Better Blog Writing</td>
+                                <td>Editor</td>
+                                <td>Writing</td>
+                                <td>Content, SEO</td>
+                                <td><span class="status-badge status-published">Published</span></td>
+                                <td>2023-06-10</td>
+                                <td>
+                                    <button class="action-btn" title="View"><i class="fas fa-eye"></i></button>
+                                         <a href="/Admin/post-detail" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <button class="action-btn delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                         
+                            <tr>
+                                <td>SEO Best Practices for 2023</td>
+                                <td>SEO Manager</td>
+                                <td>SEO, Marketing</td>
+                                <td>SEO, Traffic</td>
+                                <td><span class="status-badge status-published">Published</span></td>
+                                <td>2023-05-28</td>
+                                <td>
+                                    <button class="action-btn" title="View"><i class="fas fa-eye"></i></button>
+                                         <a href="/Admin/post-detail" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <button class="action-btn delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Getting Started with React Hooks</td>
+                                <td>Developer</td>
+                                <td>Development</td>
+                                <td>React, JavaScript</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>2023-05-20</td>
+                                <td>
+                                    <button class="action-btn" title="View"><i class="fas fa-eye"></i></button>
+                                    <a href="/Admin/post-detail" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                    <button class="action-btn delete" title="Delete"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="pagination" style="margin-top: 1rem;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Post</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    <div class="form-group">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" class="form-control" placeholder="Enter post title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postSlug">Slug</label>
+                        <input type="text" id="postSlug" class="form-control" placeholder="post-url-slug" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editor">Content</label>
+                      <textarea id="editor" name="content" class="form-control" rows="10" placeholder="Write your content here..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Featured Image</label>
+                        <div class="image-upload" id="imageUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload featured image</p>
+                            <input type="file" id="featuredImage" accept="image/*">
+                        </div>
+                        <img src="" alt="Featured Image Preview" class="featured-image-preview" id="featuredImagePreview">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postCategories">Categories</label>
+                        <select id="postCategories" class="form-control" multiple>
+                            <option value="1">Web Design</option>
+                            <option value="2">Development</option>
+                            <option value="3">SEO</option>
+                            <option value="4">Marketing</option>
+                            <option value="5">Writing</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postTags">Tags</label>
+                        <select id="postTags" class="form-control" multiple>
+                            <option value="1">JavaScript</option>
+                            <option value="2">React</option>
+                            <option value="3">CSS</option>
+                            <option value="4">HTML</option>
+                            <option value="5">UI/UX</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postAuthor">Author</label>
+                      <select id="postAuthor" class="form-control" required>
+  <% if (user) { %>
+    <option value="<%= user.id %>"><%= user.name %></option>
+  <% } else { %>
+    <option value="">Select Author</option>
+  <% } %>
+</select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="isFeatured">
+                            <label for="isFeatured">Featured Post</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelPostBtn">Cancel</button>
+                <button class="btn btn-primary" id="savePostBtn">Save Post</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+   <!-- <script src="https://cdn.tiny.cloud/1/9tse2cgaju2hrdfpalkal7s8jk78sumxah8bfj4stx6po468/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script> -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+
+    <script>
+      let ckeditorInstance; 
+      
+  ClassicEditor.create(document.querySelector('#editor'), {
+    ckfinder: {
+      uploadUrl: '/ckeditor-upload'
+    }
+  })
+  .then(editor => {
+    ckeditorInstance = editor;
+    console.log('CKEditor initialized');
+  })
+  .catch(error => {
+    console.error(error);
+  });
+ $(document).ready(function() {
+    
+      fetch('/categories')
+        .then(res => res.json())
+        .then(categories => {
+            const $categories = $('#postCategories');
+            $categories.empty();
+            categories.forEach(cat => {
+                $categories.append(`<option value="${cat.id}">${cat.name}</option>`);
+            });
+            $categories.trigger('change');
+        });
+
+            fetch('/tags')
+        .then(res => res.json())
+        .then(tags => {
+            const $tags = $('#postTags');
+            $tags.empty();
+            tags.forEach(tag => {
+                $tags.append(`<option value="${tag.slug}">${tag.name}</option>`);
+            });
+            $tags.trigger('change');
+        });
+ 
+    $('#postCategories').select2({
+        placeholder: "Select categories",
+        allowClear: true,
+        dropdownParent: $('#postModal')
+    });
+
+
+    $('#postTags').select2({
+        placeholder: "Select tags",
+        tags: true,
+        allowClear: true,
+        dropdownParent: $('#postModal')
+    });
+
+     function updateSlug() {
+        const title = document.getElementById('postTitle').value.trim();
+        const tags = $('#postTags').val() || [];
+        let slugBase = title + (tags.length ? '-' + tags.join('-') : '');
+        let slug = slugBase.toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+        document.getElementById('postSlug').value = slug;
+    }
+
+    document.getElementById('postTitle').addEventListener('input', updateSlug);
+    $('#postTags').on('change', updateSlug);
+
+});
+
+       
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+       
+        const postModal = document.getElementById('postModal');
+        const addPostBtn = document.getElementById('addPostBtn');
+        const cancelPostBtn = document.getElementById('cancelPostBtn');
+        const closeModalBtn = document.querySelector('.modal-close');
+        const imageUpload = document.getElementById('imageUpload');
+        const featuredImage = document.getElementById('featuredImage');
+        const featuredImagePreview = document.getElementById('featuredImagePreview');
+
+    
+        addPostBtn.addEventListener('click', function() {
+            postModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+       
+        function closeModal() {
+            postModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        cancelPostBtn.addEventListener('click', closeModal);
+        closeModalBtn.addEventListener('click', closeModal);
+
+     
+        postModal.addEventListener('click', function(e) {
+            if (e.target === postModal) {
+                closeModal();
+            }
+        });
+
+    
+        featuredImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    featuredImagePreview.src = event.target.result;
+                    featuredImagePreview.classList.add('active');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+            imageUpload.addEventListener('click', function(e) {
+   
+    if (e.target !== featuredImage) {
+        featuredImage.click();
+    }
+});
+
+      
+       
+        document.getElementById('postTitle').addEventListener('input', function() {
+            const title = this.value;
+            const slug = title.toLowerCase()
+                .replace(/[^\w\s]/g, '') 
+                .replace(/\s+/g, '-')   
+                .replace(/-+/g, '-');     
+            document.getElementById('postSlug').value = slug;
+
+
+  
+        });
+
+        
+        document.getElementById('savePostBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    
+    const title = document.getElementById('postTitle').value.trim();
+    const slug = document.getElementById('postSlug').value.trim();
+    const content = ckeditorInstance.getData();
+    
+    const categories = $('#postCategories').val();
+    const tags = $('#postTags').val(); 
+    const author_id = document.getElementById('postAuthor').value;
+    const is_featured = document.getElementById('isFeatured').checked ? 1 : 0;
+    const status = 'pending'; 
+    const feature_image = document.getElementById('featuredImage').files[0];
+
+   
+    const tagSlugs = tags.map(tag =>
+        tag.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    );
+    const categorySlugs = categories.map(cat =>
+        cat.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    );
+
+   
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('slug', slug);
+    formData.append('content', content);
+    formData.append('categories', JSON.stringify(categories));
+    formData.append('categorySlugs', JSON.stringify(categorySlugs));
+    formData.append('tags', JSON.stringify(tags));
+    formData.append('tagSlugs', JSON.stringify(tagSlugs));
+    formData.append('author_id', author_id);
+    formData.append('is_featured', is_featured);
+    formData.append('status', status);
+    if (feature_image) formData.append('feature_image', feature_image);
+
+    fetch('/create-post', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        showToast(data.message);
+        closeModal();
+        location.reload();
+    })
+    .catch(() => showToast('Error creating post', 'danger'));
+});
+
+       
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+       
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+
+   <script>
+    $(document).ready(function() {
+    let currentPage = 1;
+    const pageSize = 10;
+
+    function fetchPosts(page = 1) {
+        fetch(`/posts?page=${page}&limit=${pageSize}`)
+            .then(res => res.json())
+            .then(async data => {
+                const posts = data.posts;
+                const totalPages = data.totalPages;
+                const $table = $('#post-table');
+                $table.empty();
+
+                for (const post of posts) {
+                    const detailsRes = await fetch(`/post/${post.id}/details`);
+                    const postDetails = await detailsRes.json();
+
+                    const categories = postDetails.categories ? postDetails.categories.join(', ') : '';
+                    const tags = postDetails.tags ? postDetails.tags.join(', ') : '';
+                    const author = postDetails.author_name || post.author_id;
+
+                    $table.append(`
+                        <tr data-id="${post.id}">
+                            <td>${post.title}</td>
+                            <td>${post.views || 0}</td>
+                            <td>${author}</td>
+                            <td>${categories}</td>
+                            <td>${tags}</td>
+                            <td>
+                                <span class="status-badge status-${post.status}">
+                                    ${post.status.charAt(0).toUpperCase() + post.status.slice(1)}
+                                </span>
+                            </td>
+                            <td>${new Date(post.created_at).toISOString().slice(0, 10)}</td>
+                            <td>
+                                <a href="/blog-details?id=${post.id}" class="action-btn" title="View"><i class="fas fa-eye"></i></a>
+                                <a href="/Admin/post-detail?id=${post.id}" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+                                <button class="action-btn delete" data-id="${post.id}" title="Delete"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                    `);
+                }
+
+                $('#post-table').on('click', 'tr', function(e) {
+   
+    if ($(e.target).closest('.action-btn').length === 0) {
+        const postId = $(this).data('id');
+        if (postId) {
+            window.location.href = `/Admin/post-detail?id=${postId}`;
+        }
+    }
+});
+               
+                let paginationHtml = '';
+                for (let i = 1; i <= totalPages; i++) {
+                    paginationHtml += `<button class="page-btn" data-page="${i}">${i}</button>`;
+                }
+                $('#pagination').html(paginationHtml);
+            });
+    }
+
+    fetchPosts();
+
+    // Pagination click
+    $(document).on('click', '.page-btn', function() {
+        currentPage = $(this).data('page');
+        fetchPosts(currentPage);
+    });
+
+    // Handle delete
+    $('#post-table').on('click', '.delete', function() {
+        const postId = $(this).data('id');
+        fetch(`/post/${postId}`, { method: 'DELETE' })
+            .then(res => res.json())
+            .then(data => {
+                showToast(data.message);
+                fetchPosts(currentPage);
+            });
+    });
+});
+   </script>
+
+  <script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+</body>
+</html>

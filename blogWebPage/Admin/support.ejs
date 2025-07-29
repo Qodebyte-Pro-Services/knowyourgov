@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Messages | KnowYourGovNow</title>
+     <link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-collapse {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 1rem;
+            display: none;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification, .user-profile {
+            position: relative;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .notification i, .user-profile i {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area Styles */
+        .content {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        /* Messages Table */
+        .messages-table {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-pending {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .status-replied {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 700px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Message Styles */
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .message-sender {
+            font-weight: 600;
+        }
+
+        .message-meta {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .message-content {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 4px;
+        }
+
+        .reply-form {
+            margin-top: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+
+            .message-header {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0 1rem;
+            }
+
+            .search-bar input {
+                width: 120px;
+                padding-left: 2rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+            }
+
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>KnowYourGovNow</h3>
+                <button class="sidebar-collapse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/Admin/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/categories-tags">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories & Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Admin/comments">
+                         <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="#" class="active">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                <li>
+    <a href="/logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+    </a>
+</li>
+
+
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div hidden class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div hidden class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">5</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/add-image.png" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h2>Support Messages</h2>
+                </div>
+
+                <!-- Messages Table -->
+                <div class="messages-table">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Message Preview</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>john@example.com</td>
+                                <td>I'm having trouble with my account login...</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>2023-06-15</td>
+                                <td>
+                                    <button class="action-btn view-message" data-id="1" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reply-message" data-id="1" title="Reply">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Jane Smith</td>
+                                <td>jane@example.com</td>
+                                <td>I can't find the article I read last week...</td>
+                                <td><span class="status-badge status-replied">Replied</span></td>
+                                <td>2023-06-14</td>
+                                <td>
+                                    <button class="action-btn view-message" data-id="2" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reply-message" data-id="2" title="Reply">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Robert Johnson</td>
+                                <td>robert@example.com</td>
+                                <td>The newsletter subscription isn't working...</td>
+                                <td><span class="status-badge status-pending">Pending</span></td>
+                                <td>2023-06-12</td>
+                                <td>
+                                    <button class="action-btn view-message" data-id="3" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reply-message" data-id="3" title="Reply">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Emily Davis</td>
+                                <td>emily@example.com</td>
+                                <td>I'd like to contribute a guest post to your blog...</td>
+                                <td><span class="status-badge status-replied">Replied</span></td>
+                                <td>2023-06-10</td>
+                                <td>
+                                    <button class="action-btn view-message" data-id="4" title="View">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                    <button class="action-btn reply-message" data-id="4" title="Reply">
+                                        <i class="fas fa-reply"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Message Modal -->
+    <div class="modal" id="viewMessageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Support Message</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="message-header">
+                    <div>
+                        <span class="message-sender">John Doe</span>
+                        <span class="message-meta">&lt;john@example.com&gt;</span>
+                    </div>
+                    <div class="message-meta">June 15, 2023 at 10:30 AM</div>
+                </div>
+                <div class="message-content">
+                    <p>Hello,</p>
+                    <p>I'm having trouble logging into my account. Every time I try to log in, I get an error message saying "Invalid credentials" even though I'm sure I'm using the correct password.</p>
+                    <p>I've tried resetting my password, but I never receive the reset email. Could you please help me regain access to my account?</p>
+                    <p>Thank you,<br>John</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="closeViewBtn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reply Message Modal -->
+    <div class="modal" id="replyMessageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Reply to Message</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="message-header">
+                    <div>
+                        <span class="message-sender">John Doe</span>
+                        <span class="message-meta">&lt;john@example.com&gt;</span>
+                    </div>
+                    <div class="message-meta">June 15, 2023 at 10:30 AM</div>
+                </div>
+                <div class="message-content">
+                    <p>Hello,</p>
+                    <p>I'm having trouble logging into my account. Every time I try to log in, I get an error message saying "Invalid credentials" even though I'm sure I'm using the correct password.</p>
+                </div>
+                <form class="reply-form">
+                    <div class="form-group">
+                        <label for="replySubject">Subject</label>
+                        <input type="text" id="replySubject" class="form-control" value="Re: Account Login Issue" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="replyMessage">Your Reply</label>
+                        <textarea id="replyMessage" class="form-control" rows="8" required>
+Dear John,
+
+Thank you for reaching out to us about your login issue. I'm sorry to hear you're having trouble accessing your account.
+
+I've checked our system and it appears that...</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelReplyBtn">Cancel</button>
+                <button class="btn btn-primary" id="sendReplyBtn">Send Reply</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking the collapse button
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+        // Modal functionality
+        const viewMessageModal = document.getElementById('viewMessageModal');
+        const replyMessageModal = document.getElementById('replyMessageModal');
+        const closeViewBtn = document.getElementById('closeViewBtn');
+        const cancelReplyBtn = document.getElementById('cancelReplyBtn');
+        const sendReplyBtn = document.getElementById('sendReplyBtn');
+
+        // Open modals
+        function openModal(modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modals
+        function closeModal(modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        function setupModalCloseOnOutsideClick(modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal(modal);
+                }
+            });
+        }
+
+        setupModalCloseOnOutsideClick(viewMessageModal);
+        setupModalCloseOnOutsideClick(replyMessageModal);
+
+        // View Message buttons
+        document.querySelectorAll('.view-message').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                // In a real app, you would fetch the message details via AJAX
+                openModal(viewMessageModal);
+            });
+        });
+
+        // Reply Message buttons
+        document.querySelectorAll('.reply-message').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const id = this.getAttribute('data-id');
+                // In a real app, you would fetch the message details via AJAX
+                openModal(replyMessageModal);
+            });
+        });
+
+        // Close buttons
+        closeViewBtn.addEventListener('click', function() {
+            closeModal(viewMessageModal);
+        });
+
+        cancelReplyBtn.addEventListener('click', function() {
+            closeModal(replyMessageModal);
+        });
+
+        // Send reply
+        sendReplyBtn.addEventListener('click', function() {
+            // In a real app, you would send the reply via AJAX
+            alert('Reply sent successfully!');
+            closeModal(replyMessageModal);
+        });
+
+        // Responsive sidebar behavior
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+    <script>
+const tbody = document.querySelector('.messages-table tbody');
+let supportMessages = [];
+
+function renderMessages() {
+    tbody.innerHTML = '';
+    supportMessages.forEach(msg => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${msg.name}</td>
+                <td>${msg.email}</td>
+                <td>${msg.message.length > 50 ? msg.message.substring(0, 47) + '...' : msg.message}</td>
+                <td>
+                    <span class="status-badge status-${msg.status === 'replied' ? 'replied' : 'pending'}">
+                        ${msg.status === 'replied' ? 'Replied' : 'Pending'}
+                    </span>
+                </td>
+                <td>${new Date(msg.created_at).toLocaleDateString()}</td>
+                <td>
+                    <button class="action-btn view-message" data-id="${msg.id}" title="View">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn reply-message" data-id="${msg.id}" title="Reply">
+                        <i class="fas fa-reply"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    addMessageEventListeners();
+}
+
+function addMessageEventListeners() {
+    document.querySelectorAll('.view-message').forEach(btn => {
+        btn.onclick = async function() {
+            const id = this.getAttribute('data-id');
+            const msg = supportMessages.find(m => m.id == id);
+            if (!msg) return;
+            // Populate modal
+            document.querySelector('#viewMessageModal .message-sender').textContent = msg.name;
+            document.querySelector('#viewMessageModal .message-meta').textContent = `<${msg.email}>`;
+            document.querySelector('#viewMessageModal .modal-body .message-meta:last-child').textContent =
+                new Date(msg.created_at).toLocaleString();
+            document.querySelector('#viewMessageModal .message-content').innerHTML =
+                `<p>${msg.message.replace(/\n/g, '<br>')}</p>`;
+            openModal(viewMessageModal);
+        };
+    });
+
+    document.querySelectorAll('.reply-message').forEach(btn => {
+        btn.onclick = async function() {
+            const id = this.getAttribute('data-id');
+            const msg = supportMessages.find(m => m.id == id);
+            if (!msg) return;
+            // Populate modal
+            document.querySelector('#replyMessageModal .message-sender').textContent = msg.name;
+            document.querySelector('#replyMessageModal .message-meta').textContent = `<${msg.email}>`;
+            document.querySelector('#replyMessageModal .modal-body .message-meta:last-child').textContent =
+                new Date(msg.created_at).toLocaleString();
+            document.querySelector('#replyMessageModal .message-content').innerHTML =
+                `<p>${msg.message.replace(/\n/g, '<br>')}</p>`;
+            document.getElementById('replySubject').value = `Re: Support Request`;
+            document.getElementById('replyMessage').value = `Dear ${msg.name},\n\n`;
+            sendReplyBtn.setAttribute('data-id', id);
+            openModal(replyMessageModal);
+        };
+    });
+}
+
+// Fetch messages on load
+fetch('/support')
+    .then(res => res.json())
+    .then(data => {
+        supportMessages = data;
+        renderMessages();
+    });
+
+// Send reply
+sendReplyBtn.onclick = async function() {
+    const id = this.getAttribute('data-id');
+    const msg = supportMessages.find(m => m.id == id);
+    const subject = document.getElementById('replySubject').value.trim();
+    const reply = document.getElementById('replyMessage').value.trim();
+    if (!subject || !reply) {
+        showToast('Subject and reply are required.', 'danger');
+        return;
+    }
+    // Send reply to backend
+    const res = await fetch('/support_reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            support_id: id,
+            subject,
+            reply,
+            reply_email: msg.email
+        })
+    });
+    if (res.ok) {
+        showToast('Reply sent and user emailed!', 'success');
+        closeModal(replyMessageModal);
+        // Refresh messages
+        fetch('/support')
+            .then(res => res.json())
+            .then(data => {
+                supportMessages = data;
+                renderMessages();
+            });
+    } else {
+        showToast('Failed to send reply.', 'danger');
+    }
+};
+</script>
+  <script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+</body>
+</html>

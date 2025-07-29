@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowYourGovNow Dashboard</title>
+    <link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-collapse {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 1rem;
+            display: none;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification, .user-profile {
+            position: relative;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .notification i, .user-profile i {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area Styles */
+        .content {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .card-icon.posts {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+        }
+
+        .card-icon.comments {
+            background: rgba(76, 201, 240, 0.1);
+            color: var(--success-color);
+        }
+
+        .card-icon.categories {
+            background: rgba(248, 150, 30, 0.1);
+            color: var(--warning-color);
+        }
+
+        .card-icon.users {
+            background: rgba(249, 65, 68, 0.1);
+            color: var(--danger-color);
+        }
+
+        .card-title {
+            font-size: 0.9rem;
+            color: #777;
+            font-weight: 500;
+        }
+
+        .card-value {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0.5rem 0;
+        }
+
+        span .card-post-value {
+            font-size: 12px !important;
+            font-weight: bold;
+            margin: 0.5rem 0;
+        }
+
+            .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-publish {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .status-draft {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .status-pending {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .card-change {
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-change.positive {
+            color: #4caf50;
+        }
+
+        .card-change.negative {
+            color: #f44336;
+        }
+
+        /* Recent Posts Table */
+        .recent-posts {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.3rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .status-publish {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4caf50;
+        }
+
+        .status-draft {
+            background: rgba(255, 152, 0, 0.1);
+            color: #ff9800;
+        }
+
+        .status-pending {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196f3;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        /* Quick Draft Section */
+        .quick-draft {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-draft h3 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        /* Activity Feed */
+        .activity-feed {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .activity-item {
+            display: flex;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .activity-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .activity-time {
+            font-size: 0.8rem;
+            color: #777;
+        }
+
+          .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            transform: translateY(-20px);
+            transition: var(--transition);
+        }
+
+        .modal.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #777;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            color: var(--danger-color);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+          .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #555;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .select2-container {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--multiple {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-height: 38px;
+            padding: 0.3rem;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice {
+            background-color: var(--primary-color);
+            border: none;
+            color: white;
+            border-radius: 4px;
+            padding: 0 0.5rem;
+        }
+
+        .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+            color: white;
+            margin-right: 0.3rem;
+        }
+
+        .featured-image-preview {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            border-radius: 4px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .featured-image-preview.active {
+            display: block;
+        }
+
+        .image-upload {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            border: 2px dashed #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .image-upload:hover {
+            border-color: var(--primary-color);
+        }
+
+        .image-upload i {
+            font-size: 2rem;
+            color: #777;
+            margin-bottom: 1rem;
+        }
+
+        .image-upload p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+
+        .image-upload input {
+            display: none;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+        }
+
+        .checkbox-group input {
+            margin-right: 0.5rem;
+        }
+
+        @media (max-width: 992px) {
+            .cards-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+            
+            .modal-content {
+                width: 95%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header {
+                padding: 0 1rem;
+            }
+
+            .search-bar input {
+                width: 120px;
+                padding-left: 2rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .table {
+                display: block;
+                overflow-x: auto;
+            }
+
+             .modal-footer {
+                flex-direction: column;
+            }
+
+            .modal-footer .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>KnowYourGovNow</h3>
+                <button class="sidebar-collapse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/Admin/dashboard" class="active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/categories-tags">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories & Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                 <li>
+                    <a href="/Admin/comments">
+                        <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/support">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                     <li>
+                    <a href="/logout">
+                       <i class="fas fa-sign-out-alt"></i>
+                        <span>Log Out</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                    <div hidden class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div   class="header-right">
+                    <div hidden  class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/add-image.png" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h2>Dashboard Overview</h2>
+                    <button class="btn btn-primary"  id="addPostBtn">
+                        <i class="fas fa-plus"></i> New Post
+                    </button>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="cards-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Total Posts</h3>
+                            <div class="card-icon posts">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_posts %></div>
+                        <div class="card-change positive">
+                            <i class="fas fa-arrow-up"></i> <%= recent_posts %> (<%= posts_percentage %>%) from last month
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Published Posts</h3>
+                            <div class="card-icon posts">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_published_posts %></div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Post With Most Views</h3>
+                            <div class="card-icon posts">
+                                <i class="fas fa-eye
+"></i>
+                            </div>
+                        </div>
+                        <span class="card-post-value"><%= most_viewed_post.title %></span>
+                        <div class="card-change positive">
+                            <i class="fas fa-arrow-up"></i> <%= most_viewed_post.views %> views
+                        </div>
+
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Draft Posts</h3>
+                            <div class="card-icon posts">
+                                <i class="fas fa-newspaper"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_draft_posts %></div>
+                    </div>
+
+                   <div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Comments</h3>
+        <div class="card-icon comments">
+            <i class="fas fa-comments"></i>
+        </div>
+    </div>
+    <div class="card-value">
+        <%= total_comments %> <small>main</small> + <%= total_thread_comments %> <small>threads</small>
+    </div>
+    <div class="card-change positive">
+        <i class="fas fa-arrow-up"></i>
+        <%= recent_comments %> (<%= comments_percentage %>%) recent comments,
+        <%= recent_thread_comments %> recent thread replies
+    </div>
+</div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Categories</h3>
+                            <div class="card-icon categories">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_tags %></div>
+                        
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Tags</h3>
+                            <div class="card-icon categories">
+                                <i class="fas fa-tags"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_categories %></div>
+                        
+                    </div>
+
+                    <div  class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Commenters</h3>
+                            <div class="card-icon users">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </div>
+                        <div class="card-value"><%= total_commenters %></div>
+                        
+                    </div>
+                </div>
+
+                <!-- Recent Posts -->
+                <div class="recent-posts">
+                    <h3>Recent Posts</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Slug</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                             <% recent_posts_data.forEach(post => { %>
+        <tr>
+          <td><%= post.title %></td>
+         <td class="author-name-cell" data-author-id="<%= post.author_id %>">Loading...</td>
+          <td><%= post.slug %></td>
+          <td class="status-badge status-<%= post.status %>"><%= post.status %></td>
+          <td><%= new Date(post.created_at).toLocaleString() %></td>
+             <td>
+            <a href="/Admin/post-detail?id=<%= post.id %>" class="action-btn" title="Edit"><i class="fas fa-edit"></i></a>
+            <a href="/blog-details?id=<%= post.id %>" class="action-btn" title="View"><i class="fas fa-eye"></i></a>
+           <button class="action-btn delete-btn" title="Delete" data-post-id="<%= post.id %>">
+  <i class="fas fa-trash"></i>
+</button>
+             </td>
+        </tr>
+      <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div hidden class="grid-two-column">
+                    <!-- Quick Draft -->
+                    <div class="quick-draft">
+                        <h3>Quick Draft</h3>
+                        <form>
+                            <div class="form-group">
+                                <label for="draft-title">Title</label>
+                                <input type="text" id="draft-title" class="form-control" placeholder="Enter post title">
+                            </div>
+                            <div class="form-group">
+                                <label for="draft-content">Content</label>
+                                <textarea id="draft-content" class="form-control" rows="5" placeholder="Write your content here..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Save Draft</button>
+                        </form>
+                    </div>
+
+                    <!-- Activity Feed -->
+                    <div hidden class="activity-feed">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">New user "johndoe" registered</p>
+                                <p class="activity-time">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-comment"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">New comment on "How to Build a Responsive Dashboard"</p>
+                                <p class="activity-time">5 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">You updated "10 Tips for Better Blog Writing"</p>
+                                <p class="activity-time">1 day ago</p>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-share-alt"></i>
+                            </div>
+                            <div class="activity-content">
+                                <p class="activity-text">Your post was shared 15 times</p>
+                                <p class="activity-time">2 days ago</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+       
+document.querySelectorAll('.author-name-cell').forEach(cell => {
+    const authorId = cell.getAttribute('data-author-id');
+    fetch(`/user-post/${authorId}`)
+        .then(res => res.json())
+        .then(user => {
+            cell.textContent = user.name || 'Unknown';
+        })
+        .catch(() => {
+            cell.textContent = 'Unknown';
+        });
+});
+    </script>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking the collapse button
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+        // Responsive sidebar behavior
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+
+      
+    <div class="modal" id="postModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Post</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="postForm">
+                    <div class="form-group">
+                        <label for="postTitle">Title</label>
+                        <input type="text" id="postTitle" class="form-control" placeholder="Enter post title" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postSlug">Slug</label>
+                        <input type="text" id="postSlug" class="form-control" placeholder="post-url-slug" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editor">Content</label>
+                      <textarea id="editor" name="content" class="form-control" rows="10" placeholder="Write your content here..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Featured Image</label>
+                        <div class="image-upload" id="imageUpload">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Click to upload featured image</p>
+                            <input type="file" id="featuredImage" accept="image/*">
+                        </div>
+                        <img src="" alt="Featured Image Preview" class="featured-image-preview" id="featuredImagePreview">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postCategories">Categories</label>
+                        <select id="postCategories" class="form-control" multiple>
+                            <option value="1">Web Design</option>
+                            <option value="2">Development</option>
+                            <option value="3">SEO</option>
+                            <option value="4">Marketing</option>
+                            <option value="5">Writing</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postTags">Tags</label>
+                        <select id="postTags" class="form-control" multiple>
+                            <option value="1">JavaScript</option>
+                            <option value="2">React</option>
+                            <option value="3">CSS</option>
+                            <option value="4">HTML</option>
+                            <option value="5">UI/UX</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="postAuthor">Author</label>
+                        <select id="postAuthor" class="form-control" required>
+                            <option value="">Select Author</option>
+                            <option value="1">Admin</option>
+                            <option value="2">Editor</option>
+                            <option value="3">SEO Manager</option>
+                            <option value="4">Contributor</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="isFeatured">
+                            <label for="isFeatured">Featured Post</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="cancelPostBtn">Cancel</button>
+                <button class="btn btn-primary" id="savePostBtn">Save Post</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/41.1.0/classic/ckeditor.js"></script>
+        <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.action-btn.delete-btn').forEach(btn => {
+      btn.addEventListener('click', function () {
+        const postId = this.dataset.postId;
+
+        if (confirm("Are you sure you want to delete this post?")) {
+          fetch(`/post/${postId}`, {
+            method: 'DELETE',
+          })
+          .then(res => res.json())
+          .then(data => {
+            if (data.message === 'Post deleted successfully.') {
+              alert('Post deleted.');
+              location.reload();
+            } else {
+              alert('Error: ' + data.message);
+            }
+          })
+          .catch(err => alert('Request failed.'));
+        }
+      });
+    });
+  });
+</script>
+
+      <script>
+      let ckeditorInstance; 
+      
+  ClassicEditor.create(document.querySelector('#editor'), {
+    ckfinder: {
+      uploadUrl: '/ckeditor-upload'
+    }
+  })
+  .then(editor => {
+    ckeditorInstance = editor;
+    console.log('CKEditor initialized');
+  })
+  .catch(error => {
+    console.error(error);
+  });
+ $(document).ready(function() {
+    
+      fetch('/categories')
+        .then(res => res.json())
+        .then(categories => {
+            const $categories = $('#postCategories');
+            $categories.empty();
+            categories.forEach(cat => {
+                $categories.append(`<option value="${cat.id}">${cat.name}</option>`);
+            });
+            $categories.trigger('change');
+        });
+
+            fetch('/tags')
+        .then(res => res.json())
+        .then(tags => {
+            const $tags = $('#postTags');
+            $tags.empty();
+            tags.forEach(tag => {
+                $tags.append(`<option value="${tag.slug}">${tag.name}</option>`);
+            });
+            $tags.trigger('change');
+        });
+ 
+    $('#postCategories').select2({
+        placeholder: "Select categories",
+        allowClear: true,
+        dropdownParent: $('#postModal')
+    });
+
+
+    $('#postTags').select2({
+        placeholder: "Select tags",
+        tags: true,
+        allowClear: true,
+        dropdownParent: $('#postModal')
+    });
+
+     function updateSlug() {
+        const title = document.getElementById('postTitle').value.trim();
+        const tags = $('#postTags').val() || [];
+        let slugBase = title + (tags.length ? '-' + tags.join('-') : '');
+        let slug = slugBase.toLowerCase()
+            .replace(/[^\w\s-]/g, '')
+            .replace(/\s+/g, '-')
+            .replace(/-+/g, '-');
+        document.getElementById('postSlug').value = slug;
+    }
+
+    document.getElementById('postTitle').addEventListener('input', updateSlug);
+    $('#postTags').on('change', updateSlug);
+
+});
+
+       
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+       
+        const postModal = document.getElementById('postModal');
+        const addPostBtn = document.getElementById('addPostBtn');
+        const cancelPostBtn = document.getElementById('cancelPostBtn');
+        const closeModalBtn = document.querySelector('.modal-close');
+        const imageUpload = document.getElementById('imageUpload');
+        const featuredImage = document.getElementById('featuredImage');
+        const featuredImagePreview = document.getElementById('featuredImagePreview');
+
+    
+        addPostBtn.addEventListener('click', function() {
+            postModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+       
+        function closeModal() {
+            postModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        cancelPostBtn.addEventListener('click', closeModal);
+        closeModalBtn.addEventListener('click', closeModal);
+
+     
+        postModal.addEventListener('click', function(e) {
+            if (e.target === postModal) {
+                closeModal();
+            }
+        });
+
+    
+        featuredImage.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    featuredImagePreview.src = event.target.result;
+                    featuredImagePreview.classList.add('active');
+                }
+                reader.readAsDataURL(file);
+            }
+        });
+
+
+            imageUpload.addEventListener('click', function(e) {
+   
+    if (e.target !== featuredImage) {
+        featuredImage.click();
+    }
+});
+
+      
+       
+        document.getElementById('postTitle').addEventListener('input', function() {
+            const title = this.value;
+            const slug = title.toLowerCase()
+                .replace(/[^\w\s]/g, '') 
+                .replace(/\s+/g, '-')   
+                .replace(/-+/g, '-');     
+            document.getElementById('postSlug').value = slug;
+
+
+  
+        });
+
+        
+        document.getElementById('savePostBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+
+    
+    const title = document.getElementById('postTitle').value.trim();
+    const slug = document.getElementById('postSlug').value.trim();
+    const content = ckeditorInstance.getData();
+    
+    const categories = $('#postCategories').val();
+    const tags = $('#postTags').val(); 
+    const author_id = document.getElementById('postAuthor').value;
+    const is_featured = document.getElementById('isFeatured').checked ? 1 : 0;
+    const status = 'pending'; 
+    const feature_image = document.getElementById('featuredImage').files[0];
+
+   
+    const tagSlugs = tags.map(tag =>
+        tag.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    );
+    const categorySlugs = categories.map(cat =>
+        cat.toLowerCase().replace(/[^\w\s]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    );
+
+   
+    const formData = new FormData();
+    formData.append('title', title);
+    formData.append('slug', slug);
+    formData.append('content', content);
+    formData.append('categories', JSON.stringify(categories));
+    formData.append('categorySlugs', JSON.stringify(categorySlugs));
+    formData.append('tags', JSON.stringify(tags));
+    formData.append('tagSlugs', JSON.stringify(tagSlugs));
+    formData.append('author_id', author_id);
+    formData.append('is_featured', is_featured);
+    formData.append('status', status);
+    if (feature_image) formData.append('feature_image', feature_image);
+
+    fetch('/create-post', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        showToast(data.message);
+        closeModal();
+        location.reload();
+    })
+    .catch(() => showToast('Error creating post', 'danger'));
+});
+
+       
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+       
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+
+<script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+</body>
+</html>

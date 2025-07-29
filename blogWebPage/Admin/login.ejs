@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    	<link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+	<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="all">
+	<!-- carousel CSS -->
+	<link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" media="all">
+	<!-- animate CSS -->
+	<link rel="stylesheet" href="/css/animate.css" type="text/css" media="all">
+	<!-- animated-text CSS -->
+	<link rel="stylesheet" href="/css/animated-text.css" type="text/css" media="all">
+	<!-- font-awesome CSS -->
+	<link rel="stylesheet" href="/css/all.min.css" type="text/css" media="all">
+	<!-- font-flaticon CSS -->
+	<link rel="stylesheet" href="/css/flaticon.css" type="text/css" media="all">
+	<!-- theme-default CSS -->
+	<link rel="stylesheet" href="/css/theme-default.css" type="text/css" media="all">
+	<!-- meanmenu CSS -->
+	<link rel="stylesheet" href="/css/meanmenu.min.css" type="text/css" media="all">
+	<!-- transitions CSS -->
+	<link rel="stylesheet" href="/css/owl.transitions.css" type="text/css" media="all">
+	<!-- venobox CSS -->
+	<link rel="stylesheet" href="/venobox.css" type="text/css" media="all">
+	<!-- bootstrap icons -->
+	<link rel="stylesheet" href="/css/bootstrap-icons.css" type="text/css" media="all">
+	<!-- Main Style CSS -->
+	<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+	<!-- ScrollCue CSS -->
+	<link rel="stylesheet" href="/css/scrollCue.css" type="text/css" media="all">
+	<!-- responsive CSS -->
+	<link rel="stylesheet" href="/css/responsive.css" type="text/css" media="all">
+	<!-- modernizr js -->
+	<script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+		<style>
+		.pawercast_menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  margin-top: 4	px;
+  padding: 0;
+  list-style: none;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu {
+  display: block;
+  border-top: 3px solid #1e2736;
+}
+.pawercast_menu .dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.pawercast_menu .dropdown-menu li:hover {
+ color: white;
+  background: #e3e4e6;
+}
+.pawercast_menu .dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu,
+.pawercast_menu .dropdown-menu:hover {
+  display: block;
+}
+.mobile-dropdown-menu {
+  background: #f9f9f9;
+  padding-left: 20px;
+}
+.mobile-dropdown .accordion-toggle {
+  cursor: pointer;
+  margin-left: 8px;
+}
+	</style>
+</head>
+<body>
+
+    <div class="loader-wrapper">
+		<div class="loader"></div>
+		<div class="loder-section left-section"></div>
+		<div class="loder-section right-section"></div>
+	</div>
+
+    	<div id="sticky-header" style="background-color: black;" class="pawercast_nav_manu align-items-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3">
+					<div class="logo">
+						<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+					</div>
+				</div>
+				
+			</div>
+		</div>
+	    </div>
+
+     
+
+    <div class="contact-us">
+        <div class="container">
+            <div class="row join_bg align-items-center">
+                <div class="col-lg-4">						
+					<div class="join-text">
+						<div class="section-title">
+					<h1>Login Into Your Dashboard</h1>
+					<p ></p>
+						</div>	
+					</div>							
+				</div>
+           <div class="col-lg-8">
+             <div class="contact_from_box">
+                <form action="/login" method="POST">
+                    <div class="col-lg-6">
+                         <div class="form-box">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter Email">
+                        </div>
+                    </div>
+                       
+                    <div class="col-lg-6">
+                        <div class="form-box">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" required placeholder="Enter password">
+                        </div>
+
+                    </div>
+                        <div class="quote_button">
+                            <button id="loginBtn" class="btn" type="submit">Login</button>
+                        </div>
+                    </form>
+
+					<% if (typeof error !== 'undefined') { %>
+  <div class="alert alert-danger"><%= error %></div>
+<% } %>
+            </div>
+           </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-area style_two">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-logo">
+							<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+						</div>
+						<h3 hidden class="footer-widget-about"><a href="/about">About</a></h3>
+						<p hidden class="footer-desc">Morbi pharetra, eros sed euismod hours purus
+							pellentesque, nulla risus lobortis nullar risus
+							purus, quis maximus.</p>
+							
+						
+						<div class="footer-widget-social-icon   ">
+							<ul id="footer-social-links">
+								
+							</ul>
+						</div>
+						<div class="footer_shape dance">
+							<img src="/images/resource/fotter-shape.png" alt="">
+						</div>
+					</div>					
+				</div>			
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-widget-titel">
+							<h4>Quick links</h4>
+						</div>
+						<div class="footer-widget-menu">
+							<ul>
+								<li ><a href="/"><i class="flaticon flaticon-right-arrow"></i>Home</a></li>
+								<li><a href="/about"><i class="flaticon flaticon-right-arrow"></i>About</a></li>
+								<li><a href="/blog"><i class="flaticon flaticon-right-arrow"></i>Blog</a></li>
+								<li class="active_style_one"><a href="/contact"><i class="flaticon flaticon-right-arrow"></i>Contact</a></li>						
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">	
+						<div class="footer-widget-titel">
+							<h4>Contact Info</h4>
+						</div>				
+						<div class="footer-widget-menu">
+							<ul>
+								<p class="footer-desc">Questions, feedback, or just need a little encouragement? Our inbox is always open.</p>
+							</ul>
+						</div>
+							<div class="footer-widget-contact">
+							<div class="footer-didget-icon">
+								<span><i class="bi bi-envelope"></i> </span>
+							</div>
+							<div class="footer-widget-contact">
+								<p>example@gmail com</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+    <div class="footer-bottom-area ">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer-bottom-content text-center">
+						<div class="footer-bottom-content-copy">
+							<p>Copyright 2024 © KnowYourGovNow all rights reserved. By Qodebyte</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    	<div class="curser"></div>
+	<div class="curser2"></div>
+
+    	<script src="/js/vendor/jquery-3.6.2.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- carousel js -->
+	<script src="/js/owl.carousel.min.js"></script>
+	<!-- counterup js -->
+	<script src="/js/jquery.counterup.min.js"></script>
+	<!-- waypoints js -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- imagesloaded js -->
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<!-- venobox js -->
+	<script src="/venobox.js"></script>
+	<!--  animated-text js -->
+	<script src="/js/animated-text.js"></script>
+	<!-- venobox min js -->
+	<script src="/venobox.min.js"></script>
+	<!-- isotope js -->
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<!-- jquery meanmenu js -->
+	<script src="/js/jquery.meanmenu.js"></script>
+	<!-- jquery scrollup js -->
+	<script src="/js/jquery.scrollUp.js"></script>
+	<!-- jquery js -->
+	<script src="/js/jquery.barfiller.js"></script>
+	<!-- theme js -->
+	<script src="/js/theme.js"></script>
+	<script src="/js/scrollCue.min.js"></script>
+
+	<script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+
+	<script>
+fetch('/social_links')
+  .then(res => res.json())
+  .then(socialLinks => {
+    const icons = {
+      facebook: 'fab fa-facebook-f',
+      twitter: 'fab fa-twitter',
+      linkedin: 'fab fa-linkedin-in',
+      instagram: 'fab fa-instagram',
+      youtube: 'fab fa-youtube',
+      whatsapp: 'fab fa-whatsapp',
+      telegram: 'fab fa-telegram-plane',
+      github: 'fab fa-github',
+	  tiktok: 'fab fa-tiktok',
+
+    };
+    const ul = document.getElementById('footer-social-links');
+    ul.innerHTML = '';
+    socialLinks.forEach(s => {
+      const icon = icons[s.platform.toLowerCase()] || 'fas fa-link';
+      ul.innerHTML += `
+        <li>
+          <a href="${s.url || '#'}" target="_blank" rel="noopener">
+            <i class="${icon}"></i>
+          </a>
+        </li>
+      `;
+    });
+  })
+  .catch(() => {
+    const ul = document.getElementById('footer-social-links');
+	ul.innerHTML = '<li><a href="#"><i class="fas fa-link"></i></a></li>';
+	showToast('Failed to load social links', 'danger');
+  });
+</script>
+</body>
+</html>

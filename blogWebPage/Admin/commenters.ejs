@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KnowYourGovNow - Commenters</title>
+     <link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --dark-color: #1a1a2e;
+            --light-color: #f8f9fa;
+            --success-color: #4cc9f0;
+            --warning-color: #f8961e;
+            --danger-color: #f94144;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fb;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        .dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+        .toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--dark-color);
+            color: white;
+            position: fixed;
+            height: 100vh;
+            transition: var(--transition);
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 1rem;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h3 {
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .sidebar-menu {
+            padding: 1rem 0;
+        }
+
+        .sidebar-menu li {
+            list-style: none;
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-menu a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-menu a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .sidebar-menu a.active {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .sidebar-menu i {
+            margin-right: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu span {
+            font-size: 0.9rem;
+        }
+
+        .sidebar-collapse {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        /* Header Styles */
+        .header {
+            height: var(--header-height);
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            cursor: pointer;
+            margin-right: 1rem;
+            display: none;
+        }
+
+        .search-bar {
+            position: relative;
+        }
+
+        .search-bar input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            width: 250px;
+            transition: var(--transition);
+        }
+
+        .search-bar input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .search-bar i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #777;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .notification, .user-profile {
+            position: relative;
+            margin-left: 1.5rem;
+            cursor: pointer;
+        }
+
+        .notification i, .user-profile i {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--danger-color);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: bold;
+        }
+
+        .user-profile img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        /* Content Area Styles */
+        .content {
+            padding: 1.5rem;
+        }
+
+        .page-title {
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .page-title h2 {
+            font-size: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+        }
+
+        .btn-danger {
+            background: var(--danger-color);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #d32f2f;
+        }
+
+        /* Commenters Table */
+        .commenters-section {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th, .table td {
+            padding: 0.8rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table th {
+            font-weight: 600;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        .table tr:hover {
+            background: #f9f9f9;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #777;
+            cursor: pointer;
+            margin-right: 0.5rem;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .action-btn:hover {
+            color: var(--primary-color);
+        }
+
+        .action-btn.delete:hover {
+            color: var(--danger-color);
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.3rem;
+            color: var(--dark-color);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .commenter-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .commenter-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        .commenter-details h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .commenter-details p {
+            color: #777;
+        }
+
+        .comments-list {
+            margin-top: 1.5rem;
+        }
+
+        .comment-item {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .comment-item:last-child {
+            border-bottom: none;
+        }
+
+        .comment-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #777;
+        }
+
+        .comment-post {
+            font-weight: 500;
+            color: var(--primary-color);
+        }
+
+        .comment-date {
+            color: #999;
+        }
+
+        .comment-text {
+            margin-top: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1200px) {
+            .sidebar {
+                width: 70px;
+                overflow: hidden;
+            }
+
+            .sidebar-header h3, .sidebar-menu span {
+                display: none;
+            }
+
+            .sidebar-menu a {
+                justify-content: center;
+                padding: 0.8rem;
+            }
+
+            .sidebar-menu i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .sidebar {
+                left: -100%;
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .toggle-sidebar {
+                display: block;
+            }
+
+            .search-bar input {
+                width: 180px;
+            }
+
+            .commenter-info {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .commenter-avatar {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .header {
+                padding: 0 1rem;
+            }
+
+            .search-bar input {
+                width: 120px;
+                padding-left: 2rem;
+            }
+
+            .content {
+                padding: 1rem;
+            }
+
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .modal-content {
+                width: 95%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <h3>KnowYourGovNow</h3>
+                <button class="sidebar-collapse">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <ul class="sidebar-menu">
+                <li>
+                    <a href="/Admin/dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/posts">
+                        <i class="fas fa-newspaper"></i>
+                        <span>Posts</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/categories-tags">
+                        <i class="fas fa-tags"></i>
+                        <span>Categories & Tags</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/comments" class="active">
+                        <i class="fas fa-comments"></i>
+                        <span>Comments</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="/Admin/settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/Admin/support">
+                        <i class="fas fa-question-circle"></i>
+                        <span>Support</span>
+                    </a>
+                </li>
+
+                <li>
+    <a href="/logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Log Out</span>
+    </a>
+</li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <button class="toggle-sidebar">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                   <div hidden class="search-bar">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Search...">
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div hidden class="notification">
+                        <i class="fas fa-bell"></i>
+                        <span class="notification-badge">3</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/add-image.png" alt="User">
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <div class="page-title">
+                    <h2>Commenters</h2>
+                    <div>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-download"></i> Export
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Commenters Table -->
+                <div class="commenters-section">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Total Comments</th>
+                                    <th>First Comment</th>
+                                    <th>Last Comment</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>15</td>
+                                    <td>2023-05-10</td>
+                                    <td>2023-06-18</td>
+                                    <td>
+                                        <button class="action-btn view-comments" title="View Comments" data-commenter-id="1">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Delete Commenter">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sarah Smith</td>
+                                    <td>sarah@example.com</td>
+                                    <td>8</td>
+                                    <td>2023-04-15</td>
+                                    <td>2023-06-12</td>
+                                    <td>
+                                        <button class="action-btn view-comments" title="View Comments" data-commenter-id="2">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Delete Commenter">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mike Johnson</td>
+                                    <td>mike@example.com</td>
+                                    <td>5</td>
+                                    <td>2023-06-01</td>
+                                    <td>2023-06-15</td>
+                                    <td>
+                                        <button class="action-btn view-comments" title="View Comments" data-commenter-id="3">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Delete Commenter">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Emily Davis</td>
+                                    <td>emily@example.com</td>
+                                    <td>3</td>
+                                    <td>2023-05-28</td>
+                                    <td>2023-06-10</td>
+                                    <td>
+                                        <button class="action-btn view-comments" title="View Comments" data-commenter-id="4">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Delete Commenter">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Robert Wilson</td>
+                                    <td>robert@example.com</td>
+                                    <td>12</td>
+                                    <td>2023-03-10</td>
+                                    <td>2023-06-14</td>
+                                    <td>
+                                        <button class="action-btn view-comments" title="View Comments" data-commenter-id="5">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                        <button class="action-btn delete" title="Delete Commenter">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Commenter Comments Modal -->
+    <div class="modal" id="commentsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Commenter's Comments</h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="commenter-info">
+                    <div class="commenter-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="commenter-details">
+                        <h4 id="commenterName">John Doe</h4>
+                        <p id="commenterEmail">john@example.com</p>
+                    </div>
+                </div>
+                <div class="comments-list" id="commentsList">
+                    <!-- Comments will be loaded here -->
+                    <div class="comment-item">
+                        <div class="comment-meta">
+                            <span class="comment-post">On: How to Build a Responsive Dashboard</span>
+                            <span class="comment-date">2023-06-15</span>
+                        </div>
+                        <div class="comment-text">
+                            This is really helpful! I implemented it in my project and it works great.
+                        </div>
+                    </div>
+                    <div class="comment-item">
+                        <div class="comment-meta">
+                            <span class="comment-post">On: 10 Tips for Better Blog Writing</span>
+                            <span class="comment-date">2023-06-10</span>
+                        </div>
+                        <div class="comment-text">
+                            I found tip #7 particularly useful for my writing workflow.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="deleteCommenterBtn">
+                    <i class="fas fa-trash"></i> Delete Commenter
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.toggle-sidebar').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+
+        // Close sidebar when clicking the collapse button
+        document.querySelector('.sidebar-collapse').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.remove('active');
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('commentsModal');
+        const modalClose = document.querySelector('.modal-close');
+        const viewCommentBtns = document.querySelectorAll('.view-comments');
+        const deleteCommenterBtn = document.getElementById('deleteCommenterBtn');
+
+        // Open modal when view comments button is clicked
+        viewCommentBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const commenterId = this.getAttribute('data-commenter-id');
+                const row = this.closest('tr');
+                const name = row.cells[0].textContent;
+                const email = row.cells[1].textContent;
+                
+                // Set commenter info in modal
+                document.getElementById('commenterName').textContent = name;
+                document.getElementById('commenterEmail').textContent = email;
+                
+                // In a real app, you would fetch the comments for this commenter here
+                // For this example, we're using placeholder data
+                
+                // Show modal
+                modal.classList.add('active');
+            });
+        });
+
+        // Close modal when X button is clicked
+        modalClose.addEventListener('click', function() {
+            modal.classList.remove('active');
+        });
+
+        // Close modal when clicking outside the modal content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+
+        // Delete commenter button in modal
+        deleteCommenterBtn.addEventListener('click', function() {
+            if (confirm('Are you sure you want to delete this commenter and all their comments?')) {
+                // In a real app, you would send a request to delete the commenter here
+                alert('Commenter deleted successfully');
+                modal.classList.remove('active');
+                // You would also remove the row from the table or refresh the page
+            }
+        });
+
+        // Delete commenter buttons in table
+        document.querySelectorAll('.action-btn.delete').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const row = this.closest('tr');
+                const name = row.cells[0].textContent;
+                if (confirm(`Are you sure you want to delete commenter "${name}" and all their comments?`)) {
+                    // In a real app, you would send a request to delete the commenter here
+                    row.remove();
+                    alert('Commenter deleted successfully');
+                }
+            });
+        });
+
+        // Responsive sidebar behavior
+        function handleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const screenWidth = window.innerWidth;
+            
+            if (screenWidth <= 768) {
+                sidebar.classList.remove('active');
+            } else {
+                sidebar.classList.add('active');
+            }
+        }
+
+        // Run on load and resize
+        window.addEventListener('load', handleSidebar);
+        window.addEventListener('resize', handleSidebar);
+    </script>
+  <script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+<script>
+let currentPage = 1;
+const perPage = 10;
+let totalPages = 1;
+
+// Fetch and render commenters
+function loadCommenters(page = 1) {
+    fetch(`/commenters?page=${page}&limit=${perPage}`)
+        .then(res => res.json())
+        .then(data => {
+            renderTable(data.commenters);
+            renderPagination(data.page, Math.ceil(data.total / data.limit));
+        });
+}
+
+function renderTable(commenters) {
+    const tbody = document.querySelector('.table tbody');
+    tbody.innerHTML = '';
+    commenters.forEach(c => {
+        tbody.innerHTML += `
+            <tr>
+                <td>${c.name}</td>
+                <td>${c.email}</td>
+                <td>${c.total_comments}</td>
+                <td>${c.first_comment_date ? c.first_comment_date.slice(0,10) : '-'}</td>
+                <td>${c.last_comment_date ? c.last_comment_date.slice(0,10) : '-'}</td>
+                <td>
+                    <button class="action-btn view-comments" title="View Comments" data-commenter-id="${c.id}" data-name="${c.name}" data-email="${c.email}">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <button class="action-btn delete" title="Delete Commenter" data-commenter-id="${c.id}">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </td>
+            </tr>
+        `;
+    });
+    addTableListeners();
+}
+
+function renderPagination(page, total) {
+    currentPage = page;
+    totalPages = total;
+    let html = '';
+    if (totalPages > 1) {
+        html += `<nav class="pagination-nav"><ul class="pagination">`;
+        for (let i = 1; i <= totalPages; i++) {
+            html += `<li class="page-item${i === page ? ' active' : ''}">
+                <a href="#" class="page-link" data-page="${i}">${i}</a>
+            </li>`;
+        }
+        html += `</ul></nav>`;
+    }
+    let pagDiv = document.getElementById('pagination');
+    if (!pagDiv) {
+        pagDiv = document.createElement('div');
+        pagDiv.id = 'pagination';
+        document.querySelector('.commenters-section').appendChild(pagDiv);
+    }
+    pagDiv.innerHTML = html;
+    pagDiv.querySelectorAll('.page-link').forEach(link => {
+        link.onclick = function(e) {
+            e.preventDefault();
+            const page = parseInt(this.dataset.page, 10);
+            if (page !== currentPage) loadCommenters(page);
+        };
+    });
+}
+
+function addTableListeners() {
+    // View Comments
+    document.querySelectorAll('.view-comments').forEach(btn => {
+        btn.onclick = function() {
+            const commenterId = this.getAttribute('data-commenter-id');
+            const name = this.getAttribute('data-name');
+            const email = this.getAttribute('data-email');
+            document.getElementById('commenterName').textContent = name;
+            document.getElementById('commenterEmail').textContent = email;
+            // Fetch comments for this commenter
+            fetch(`/comments?email=${encodeURIComponent(email)}`)
+                .then(res => res.json())
+                .then(comments => {
+                    const list = document.getElementById('commentsList');
+                    list.innerHTML = '';
+                    if (!comments.length) {
+                        list.innerHTML = '<div class="comment-item">No comments found.</div>';
+                    } else {
+                        comments.forEach(cm => {
+                            list.innerHTML += `
+                                <div class="comment-item">
+                                    <div class="comment-meta">
+                                        <span class="comment-post">On: ${cm.post_title || '-'}</span>
+                                        <span class="comment-date">${cm.created_at ? cm.created_at.slice(0,10) : '-'}</span>
+                                    </div>
+                                    <div class="comment-text">${cm.comment}</div>
+                                </div>
+                            `;
+                        });
+                    }
+                    document.getElementById('commentsModal').classList.add('active');
+                });
+        };
+    });
+    // Delete Commenter
+    document.querySelectorAll('.action-btn.delete').forEach(btn => {
+        btn.onclick = function() {
+            const commenterId = this.getAttribute('data-commenter-id');
+            if (confirm('Are you sure you want to delete this commenter and all their comments?')) {
+                fetch(`/commenters/${commenterId}`, { method: 'DELETE' })
+                    .then(res => res.json())
+                    .then(data => {
+                        showToast(data.message, 'success');
+                        loadCommenters(currentPage);
+                        document.getElementById('commentsModal').classList.remove('active');
+                    });
+            }
+        };
+    });
+}
+
+// Export button
+document.querySelector('.btn.btn-primary').onclick = function() {
+    window.location.href = '/commenters/export';
+};
+
+// Modal close logic
+document.querySelector('.modal-close').onclick = function() {
+    document.getElementById('commentsModal').classList.remove('active');
+};
+document.getElementById('commentsModal').onclick = function(e) {
+    if (e.target === this) this.classList.remove('active');
+};
+
+// Initial load
+loadCommenters();
+</script>
+</body>
+</html>

@@ -1,0 +1,1108 @@
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Know Your Gov Now</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Favicon -->
+	<link rel="icon" type="image/png" sizes="56x56" href="/images/top.png">
+	<!-- bootstrap CSS -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css" type="text/css" media="all">
+	<!-- carousel CSS -->
+	<link rel="stylesheet" href="/css/owl.carousel.min.css" type="text/css" media="all">
+	<!-- animate CSS -->
+	<link rel="stylesheet" href="/css/animate.css" type="text/css" media="all">
+	<!-- animated-text CSS -->
+	<link rel="stylesheet" href="/css/animated-text.css" type="text/css" media="all">
+	<!-- font-awesome CSS -->
+	<link rel="stylesheet" href="/css/all.min.css" type="text/css" media="all">
+	<!-- font-flaticon CSS -->
+	<link rel="stylesheet" href="/css/flaticon.css" type="text/css" media="all">
+	<!-- theme-default CSS -->
+	<link rel="stylesheet" href="/css/theme-default.css" type="text/css" media="all">
+	<!-- meanmenu CSS -->
+	<link rel="stylesheet" href="/css/meanmenu.min.css" type="text/css" media="all">
+	<!-- transitions CSS -->
+	<link rel="stylesheet" href="/css/owl.transitions.css" type="text/css" media="all">
+	<!-- venobox CSS -->
+	<link rel="stylesheet" href="/venobox.css" type="text/css" media="all">
+	<!-- bootstrap icons -->
+	<link rel="stylesheet" href="/css/bootstrap-icons.css" type="text/css" media="all">
+	<!-- Main Style CSS -->
+	<link rel="stylesheet" href="/css/style.css" type="text/css" media="all">
+	<!-- ScrollCue CSS -->
+	<link rel="stylesheet" href="/css/scrollCue.css" type="text/css" media="all">
+	<!-- responsive CSS -->
+	<link rel="stylesheet" href="/css/responsive.css" type="text/css" media="all">
+	<!-- modernizr js -->
+	<script src="/js/vendor/modernizr-3.5.0.min.js"></script>
+		<style>
+		.pawercast_menu .dropdown-menu {
+  display: none;
+  position: absolute;
+  background: #fff;
+  min-width: 200px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  z-index: 100;
+  margin-top: 4	px;
+  padding: 0;
+  list-style: none;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu {
+  display: block;
+  border-top: 3px solid #1e2736;
+}
+.pawercast_menu .dropdown-menu li {
+  padding: 10px 20px;
+}
+
+.toast-custom {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  min-width: 250px;
+  max-width: 350px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  transform: translateX(0);
+  opacity: 1;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  padding: 0;
+  border: none;
+}
+
+/* Toast when hiding */
+.toast-custom.hide {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Toast Body */
+.toast-custom-body {
+  padding: 16px;
+  flex-grow: 1;
+  color: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Close Button */
+.toast-custom-close {
+  background: transparent;
+  border: none;
+  color: white;
+  opacity: 0.8;
+  padding: 16px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+}
+
+.toast-custom-close:hover {
+  opacity: 1;
+}
+
+/* Success Variant */
+.toast-custom.success {
+  background: #28a745;
+}
+
+/* Error Variant */
+.toast-custom.error {
+  background: #dc3545;
+}
+
+/* Warning Variant */
+.toast-custom.warning {
+  background: #ffc107;
+  color: #212529;
+}
+
+.toast-custom.warning .toast-custom-body,
+.toast-custom.warning .toast-custom-close {
+  color: #212529;
+}
+
+/* Info Variant */
+.toast-custom.info {
+  background: #17a2b8;
+}
+
+/* Animation */
+@keyframes slideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+.pawercast_menu .dropdown-menu li:hover {
+ color: white;
+  background: #e3e4e6;
+}
+.pawercast_menu .dropdown-menu li a {
+  color: #333;
+  text-decoration: none;
+  display: block;
+}
+.pawercast_menu .dropdown:hover .dropdown-menu,
+.pawercast_menu .dropdown-menu:hover {
+  display: block;
+}
+.mobile-dropdown-menu {
+  background: #f9f9f9;
+  padding-left: 20px;
+}
+.mobile-dropdown .accordion-toggle {
+  cursor: pointer;
+  margin-left: 8px;
+}
+	</style>
+</head>
+
+<body>
+
+	<!-- Loder Start -->
+	<div class="loader-wrapper">
+		<div class="loader"></div>
+		<div class="loder-section left-section"></div>
+		<div class="loder-section right-section"></div>
+	</div>
+	<!-- Loder End -->
+
+	
+	<!--==================================================-->
+	<!-- Start pawercast Main Menu Area -->
+	<!--==================================================-->
+		<div id="sticky-header" style="background-color: #1e2736;" class="pawercast_nav_manu align-items-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-3">
+					<div class="logo">
+						<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+					</div>
+				</div>
+				<div class="col-lg-9">
+					<div class="main_menu">
+						<nav class="pawercast_menu">
+							<ul class="nav_scroll">
+								<li><a href="/">Home</a></li>							
+								<li><a href="/about">About Us</a></li>							
+								<li class="dropdown">
+								<a href="/blog">Blog</a>
+								<ul class="dropdown-menu nav_scroll"  id="desktop-categories-menu">
+								
+									 <span class="categories-separator"></span>
+								</ul>
+								</li>
+								<li><a href="/contact">Contact</a></li>
+							</ul>
+							
+						</nav>
+					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- End pawercast Main Menu Area -->
+	<!--==================================================-->
+
+	<!-- pawercast Mobile Menu Area -->
+	<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none ">
+		<div class="mobile-menu">
+			<nav class="pawercast_menu">
+				<ul class="nav_scroll">
+								<li><a href="/">Home</a></li>							
+								<li><a href="/about">About Us</a></li>
+								<li class="mobile-dropdown">
+								<a href="/blog">Blog <span class="accordion-toggle">&#9660;</span></a>
+								<ul class="mobile-dropdown-menu"  id="mobile-categories-menu"  style="display: none;">
+									 <span class="categories-separator"></span>
+								</ul>
+								</li>
+								<li><a href="/contact">Contact Us</a></li>
+								
+							</ul>
+			</nav>
+		</div>
+	</div>
+	<!--=======
+	<div class="mobile-menu-area sticky d-sm-block d-md-block d-lg-none ">
+		<div class="mobile-menu">
+			<nav class="pawercast_menu">
+				<ul class="nav_scroll">
+					<li><a href="/">Home</a></li>							
+					<li><a href="#">Page</a>
+						<ul class="sub-menu">
+							<li><a href="about.html">About Us</a></li>					
+							<li><a href="team.html">Our Team</a></li>
+							<li><a href="podcast.html">Episode List Standard</a></li>
+							<li><a href="podcast-2.html">Episode List Basic</a></li>
+							<li><a href="podcast-3.html">Episode List Excerpt</a></li>
+							<li><a href="/contact">Contact Us</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Podcast</a>
+						<ul class="sub-menu">
+							<li><a href="podcast.html">Episode List Standard</a></li>
+							<li><a href="podcast-2.html">Episode List Basic</a></li>
+							<li><a href="podcast-3.html">Episode List Excerpt</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Blog</a>
+						<ul class="sub-menu">
+							<li><a href="/blog">Blog Single</a></li>
+							<li><a href="/blog-details">Blog Details</a></li>
+						</ul>
+					</li>
+					<li><a href="#">Shop</a>
+						<ul class="sub-menu">
+							<li><a href="shop.html">Shop</a></li>
+							<li><a href="shop-details.html">Shop Details</a></li>
+							<li><a href="cart.html">Shopping Cart</a></li>
+							<li><a href="checkout.html">Checkout</a></li>
+							<li><a href="my-account.html">My Account</a></li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- End pawercast Main Menu Area -->
+	<!--==================================================-->
+
+
+	<!--==================================================-->
+	<!--Start breadcumb Section -->
+	<!--===================================================-->
+	<!-- <div  class="breadcumb-area d-flex align-items-center">
+		<div class="container">
+			<div class="row d-flex align-items-center">
+				<div class="col-lg-12">
+					<div class="breadcumb-content">
+						<h1>Blog Details</h1>
+						<ul>
+							<li><a href="/">Home</a></li>
+							<li>Blog Details</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> -->
+	<!--==================================================-->
+	<!--End breadcumb Section -->
+	<!--===================================================-->
+
+	<!--==================================================-->
+	<!--START BLOG Deatails  -->
+	<!--===================================================-->
+	<div class="blog-details">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="blog-single-items" data-cue="zoomIn">
+						<div class="blog-thumb">
+						<img id="blog-feature-image" src="/images/resource/blog6.png" alt="Blog img">
+					</div>
+						<div class="blog-content">
+							<div class="blog-meta" id="blog-meta">
+								
+							</div>
+							<div class="blog-content-text text-left">
+								  <h2 id="blog-title">Blog Title</h2>						
+            <div class="qouik2" id="blog-content"></div>
+								<div class="blog-details-social">
+									 <div class="blog-social-tags" id="blog-tags">
+              
+            </div>							
+									<div class="single-blog-social-icon">
+										<div class="share-text">
+											<h4>Share :</h4>
+										</div>
+										<ul id="blog-share-links"></ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="blog-details-contents">
+									<h3>2 Comments</h3>	
+								</div>
+
+								
+							</div>
+						</div>
+						<div class="comment-form">
+							<div class="comment-title">
+								<h3>Leave Comment</h3>
+								<span></span>
+							</div>
+							<form   id="dreamit-form">
+								<div class="row">
+									<div class="col-md-12">
+										<textarea name="comment-message" class="mb-20" id="comment-msg-box" cols="30"
+											rows="4" placeholder="Message"></textarea>
+									</div>
+									<div class="col-md-6"><input type="text" class="comment-box" name="comment-name"
+											placeholder="Your Name"></div>
+									<div class="col-md-6"><input type="email" class="comment-box" name="comment-email"placeholder="Email"></div>
+
+									<!-- <div class="col-lg-12"><input type="text" class="comment-box" name="comment-website"placeholder="Your Website"></div>									 -->
+									<button id="submit-comment" type="submit"  class="submit-comment">
+										Post Comments
+									</button>
+								</div>
+							</form>
+							<div id="status"></div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-4">
+					<div hidden class="widget-items-search" data-cue="zoomIn">
+						<form action="#" method="get">
+							<input type="text" class="src-input-box" placeholder="Search Here" name="s" value=""
+								title="src-input-box">
+							<button class="src-icon" type="submit">
+								<i class="fas fa-search"></i>
+							</button>
+						</form>
+					</div>
+
+					<div class="widget-items upp" data-cue="zoomIn">
+						<div class="widget-title">
+							<h2>Recent Posts Related to Category</h2>
+						</div>
+						
+					</div>
+					
+					<div hidden class="widget-items" data-cue="zoomIn">
+						<div class="widget-title">
+							<h2>Categories</h2>
+						</div>
+						<div class="catagory-item">
+							<ul>
+								<li><a href="#">Category</a></li>
+								<li><a href="#">Creative</a></li>
+								<li><a href="#">Digital</li>
+								<li><a href="#">Trend</a></li>
+								<li><a href="#">Urban</a></li>
+								<li><a href="#">Soil Testing</a></li>
+							</ul>
+						</div>
+					</div>
+					
+					<div hidden class="widget-items" data-cue="zoomIn">
+						<div class="widget-title">
+							<h2>Tag Cloud</h2>
+						</div>
+						<div class="tag-item">
+							<a href="#">Basic</a>
+							<a href="#">Digital</a>
+							<a href="#">Design</a>
+							<a href="#">Tag</a>
+							<a href="#">Creative</a>
+							<a href="#">Bold</a>
+							<a href="#">3d Modeling</a>
+						</div>
+					</div>
+					
+					
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!--End BLOG Deatails  -->
+	<!--===================================================-->
+
+
+
+	<!--==================================================-->
+	<!-- Start pawercast Footer Area -->
+	<!--==================================================-->
+<div class="footer-area style_two">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-logo">
+							<a class="logo_img" href="/" title="KnowYourGov"><img src="/images/knowyourgov.png" alt="logo"></a>
+						</div>
+						<h3 hidden class="footer-widget-about"><a href="/about">About</a></h3>
+						<p hidden class="footer-desc">Morbi pharetra, eros sed euismod hours purus
+							pellentesque, nulla risus lobortis nullar risus
+							purus, quis maximus.</p>
+							
+						
+						<div class="footer-widget-social-icon   ">
+							<ul id="footer-social-links">
+								
+							</ul>
+						</div>
+						<div class="footer_shape dance">
+							<img src="/images/resource/fotter-shape.png" alt="">
+						</div>
+					</div>					
+				</div>			
+				<div class="col-lg-2 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">
+						<div class="footer-widget-titel">
+							<h4>Quick links</h4>
+						</div>
+						<div class="footer-widget-menu">
+							<ul>
+								<li class="active_style_one"><a href="/"><i class="flaticon flaticon-right-arrow"></i>Home</a></li>
+								<li><a href="/about"><i class="flaticon flaticon-right-arrow"></i>About</a></li>
+								<li><a href="/blog"><i class="flaticon flaticon-right-arrow"></i>Blog</a></li>
+								<li><a href="/contact"><i class="flaticon flaticon-right-arrow"></i>Contact</a></li>						
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-6">
+					<div class="footer-widget-content" data-cue="zoomIn">	
+						<div class="footer-widget-titel">
+							<h4>Contact Info</h4>
+						</div>				
+						<div class="footer-widget-menu">
+							<ul>
+								<p class="footer-desc">Questions, feedback, or just need a little encouragement? Our inbox is always open.</p>
+							</ul>
+						</div>
+							<div class="footer-widget-contact">
+							<div class="footer-didget-icon">
+								<span><i class="bi bi-envelope"></i> </span>
+							</div>
+							<div class="footer-widget-contact">
+								<p>example@gmail com</p>
+							</div>
+							
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- newsletter area -->
+	<div hidden class="newsletter-area">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-lg-6 col-md-6">
+					<div class="news-icon-item">
+						<span><i class="bi bi-envelope"></i> </span>
+						<div class="newsletter-title">
+							<h1>Subscribe Our Newsletter</h1>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-6 col-md-6">
+					<div class="main-form">
+
+						<form action="https://formspree.io/f/myyleorq" method="POST" id="dreamit-form">
+							<div class="subscribe_form">
+								<input type="email" name="email" id="email" class="form-control" required="" data-error="Please enter your email" placeholder="Your Email Address...">
+									<button type="submit" class="btn">Subscribe</button>
+							</div>
+							
+						</form>
+						<div id="status"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- footer bottom area -->
+	<div class="footer-bottom-area ">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer-bottom-content text-center">
+						<div class="footer-bottom-content-copy">
+							<p>Copyright 2024 © KnowYourGovNow all rights reserved. By Qodebyte</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!--==================================================-->
+	<!-- Start pawercast Footer Area -->
+	<!--==================================================-->
+
+
+	<!--==================================================-->
+	<!-- Start scrollup section Area -->
+	<!--==================================================-->
+	<div class="prgoress_indicator">
+		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+		<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+		</svg>
+	</div>
+	<!--==================================================-->
+	<!-- Start scrollup section Area -->
+	<!--==================================================-->
+
+	<!--==================================================-->
+	<!-- Start Curser Section Here -->
+	<!--==================================================-->
+	<div class="curser"></div>
+	<div class="curser2"></div>
+	<!--==================================================-->
+	<!-- Ends Curser Section Here -->
+	<!--==================================================-->
+
+
+	<!-- jquery js -->
+	<script src="/js/vendor/jquery-3.6.2.min.js"></script>
+	<!-- bootstrap js -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- carousel js -->
+	<script src="/js/owl.carousel.min.js"></script>
+	<!-- counterup js -->
+	<script src="/js/jquery.counterup.min.js"></script>
+	<!-- waypoints js -->
+	<script src="/js/waypoints.min.js"></script>
+	<!-- imagesloaded js -->
+	<script src="/js/imagesloaded.pkgd.min.js"></script>
+	<!-- venobox js -->
+	<script src="/venobox.js"></script>
+	<!-- venobox min js -->
+	<script src="/venobox.min.js"></script>
+	<!-- isotope js -->
+	<script src="/js/isotope.pkgd.min.js"></script>
+	<!-- jquery meanmenu js -->
+	<script src="/js/jquery.meanmenu.js"></script>
+	<!-- jquery scrollup js -->
+	<script src="/js/jquery.scrollUp.js"></script>
+	<!-- theme js -->
+	<script src="/js/theme.js"></script>
+	<!-- barfiller -->
+	<script src="/js/jquery.barfiller.js"></script>
+	<script src="/js/scrollCue.min.js"></script>
+	<script>
+document.querySelectorAll('.mobile-dropdown .accordion-toggle').forEach(function(toggle) {
+  toggle.addEventListener('click', function(e) {
+    e.preventDefault();
+    var submenu = this.parentElement.nextElementSibling;
+    if (submenu.style.display === "block") {
+      submenu.style.display = "none";
+    } else {
+      submenu.style.display = "block";
+    }
+  });
+});
+</script>
+			<script>
+fetch('/categories_user')
+  .then(res => res.json())
+  .then(categories => {
+    let categoryLinks = '';
+    categories.forEach(cat => {
+      categoryLinks += `<li><a href="/blog?id=${cat.id}&slug=${encodeURIComponent(cat.slug)}">${cat.name}</a></li>`;
+    });
+
+    const desktopMenu = document.getElementById('desktop-categories-menu');
+    if (desktopMenu) {
+      const sep = desktopMenu.querySelector('.categories-separator');
+      if (sep) {
+        sep.insertAdjacentHTML('afterend', categoryLinks);
+      }
+    }
+
+    const mobileMenu = document.getElementById('mobile-categories-menu');
+    if (mobileMenu) {
+      const sep = mobileMenu.querySelector('.categories-separator');
+      if (sep) {
+        sep.insertAdjacentHTML('afterend', categoryLinks);
+      }
+    }
+  });
+</script>
+<script>
+function showToast(message, type = "success") {
+  const toast = document.createElement("div");
+  toast.className = `toast-custom ${type}`;
+  
+  toast.innerHTML = `
+    <div class="toast-custom-body">${message}</div>
+    <button class="toast-custom-close" aria-label="Close">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  `;
+
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.animation = "slideIn 0.3s forwards";
+  }, 10);
+
+  
+  const removeToast = () => {
+    toast.classList.add('hide');
+    setTimeout(() => toast.remove(), 300);
+  };
+
+  
+  const timeoutId = setTimeout(removeToast, 3500);
+
+
+  toast.querySelector('.toast-custom-close').onclick = () => {
+    clearTimeout(timeoutId);
+    removeToast();
+  };
+}
+</script>
+
+<script>
+function getQueryParam(name) {
+    const url = new URL(window.location.href);
+    return url.searchParams.get(name);
+}
+
+const postId = getQueryParam('id');
+
+fetch(`/post-users/${postId}`)
+  .then(res => res.json())
+  .then(async post => {
+    // Set feature image
+    document.getElementById('blog-feature-image').src = post.feature_image || '/images/resource/blog6.png';
+
+    // Set title
+    document.getElementById('blog-title').textContent = post.title || '';
+
+    // Set content (render as HTML)
+    document.getElementById('blog-content').innerHTML = post.content || '';
+
+	const shareUl = document.getElementById('blog-share-links');
+if (shareUl && post) {
+    const postUrl = encodeURIComponent(`${window.location.origin}/blog-details?id=${post.id}&slug=${post.slug}`);
+    const postTitle = encodeURIComponent(post.title);
+
+    shareUl.innerHTML = `
+        <li><a href="https://www.facebook.com/sharer/sharer.php?u=${postUrl}" target="_blank" title="Share on Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a href="https://twitter.com/intent/tweet?url=${postUrl}&text=${postTitle}" target="_blank" title="Share on Twitter"><i class="fab fa-twitter"></i></a></li>
+        <li><a href="https://www.linkedin.com/sharing/share-offsite/?url=${postUrl}" target="_blank" title="Share on LinkedIn"><i class="fab fa-linkedin-in"></i></a></li>
+        <li><a href="https://pinterest.com/pin/create/button/?url=${postUrl}&description=${postTitle}" target="_blank" title="Share on Pinterest"><i class="fab fa-pinterest-p"></i></a></li>
+        <li><a href="https://api.whatsapp.com/send?text=${postTitle}%20${postUrl}" target="_blank" title="Share on WhatsApp"><i class="fab fa-whatsapp"></i></a></li>
+    `;
+}
+
+    // Get author name (if not included in post, fetch it)
+    let authorName = '';
+    if (post.author_name) {
+        authorName = post.author_name;
+    } else if (post.author_id) {
+        try {
+            const res = await fetch(`/user-post/${post.author_id}`);
+            if (res.ok) {
+                const user = await res.json();
+                authorName = user.name;
+            }
+        } catch {}
+    }
+
+    // Set meta (date, category, author)
+    document.getElementById('blog-meta').innerHTML = `
+        <span><a href="#">${post.created_at ? new Date(post.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' }) : ''}</a></span>
+        <span>${post.slug || ''}</span>
+        <span><a href="#"> By ${authorName}</a></span>
+    `;
+
+    // Set tags in main content
+    if (post.tags && post.tags.length > 0) {
+        fetch('/tags')
+            .then(res => res.json())
+            .then(tags => {
+                const tagNames = tags.filter(t => post.tags.includes(t.tag_id)).map(t => t.name);
+                document.getElementById('blog-tags').innerHTML = `<span><strong>Tags :</strong> ${tagNames.join(', ')}</span>`;
+                // Tag cloud in sidebar
+                const tagDiv = document.querySelector('.tag-item');
+                tagDiv.innerHTML = '';
+                tags.forEach(tag => {
+                  if (post.tags.includes(tag.tag_id)) {
+                    tagDiv.innerHTML += `<a href="/blog?tag=${tag.tag_id}&slug=${encodeURIComponent(tag.slug)}">${tag.name}</a> `;
+                  }
+                });
+                tagDiv.closest('.widget-items').removeAttribute('hidden');
+            });
+    } else {
+        document.getElementById('blog-tags').innerHTML = '';
+    }
+
+   const postCategories = post.categories || [];
+ if (postCategories.length > 0) {
+  fetch(`/posts/category/${postCategories[0]}`)
+    .then(res => res.json())
+    .then(posts => {
+      // Only show published posts and not the current post
+      const related = posts.filter(p => p.status === 'publish' && p.id != post.id).slice(0, 3);
+      const widget = document.querySelector('.widget-items.upp');
+		
+
+      let html = '';
+
+	  if (related.length === 0) {
+		widget.innerHTML = '<p>No related posts found.</p>';
+		return;
+	  }
+	 
+	  
+      related.forEach((p, i) => {
+        html += `
+          <div class="widget-recent-post d-flex${i > 0 ? ' hr-3' : ''}" data-cue="zoomIn">
+            <div class="rpost-thumb">
+              <a href="/blog-details?id=${p.id}&slug=${encodeURIComponent(p.slug)}"><img src="${p.feature_image || '/images/resource/post1.png'}" alt="post thumb"></a>
+            </div>
+            <div class="rpost-content">
+              <div class="rpost-title">
+                <a href="/blog-details?id=${p.id}&slug=${encodeURIComponent(p.slug)}">
+                  <h4>${p.title.length > 40 ? p.title.substring(0, 37) + '...' : p.title}</h4>
+                </a>
+                <span>${new Date(p.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      widget.querySelectorAll('.widget-recent-post').forEach(e => e.remove());
+      widget.insertAdjacentHTML('beforeend', html);
+
+      if (window.scrollCue && typeof scrollCue.update === 'function') {
+        scrollCue.update();
+      }
+    });
+    }
+});
+</script>
+
+<script>
+const blogId = (() => {
+    const url = new URL(window.location.href);
+    return url.searchParams.get('id');
+})();
+
+let postTitle = '';
+let replyTo = null;
+let replyToType = 'comment'; // 'comment' or 'thread'
+
+// Fetch post title for comment submission
+fetch(`/post/${blogId}`)
+  .then(res => res.json())
+  .then(post => { postTitle = post.title || ''; });
+
+// Prefill and hide name/email if saved
+window.addEventListener('DOMContentLoaded', () => {
+    const name = localStorage.getItem('commenterName');
+    const email = localStorage.getItem('commenterEmail');
+    const nameInput = document.querySelector('input[name="comment-name"]');
+    const emailInput = document.querySelector('input[name="comment-email"]');
+    if (name) nameInput.value = name;
+    if (email) emailInput.value = email;
+
+    if (name && email) {
+        nameInput.parentElement.style.display = 'none';
+        emailInput.parentElement.style.display = 'none';
+    }
+});
+
+// Handle comment form submit
+document.getElementById('dreamit-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('submit-comment');
+    btn.disabled = true;
+    const originalText = btn.textContent;
+    btn.textContent = 'Posting...';
+
+    const comment = document.getElementById('comment-msg-box').value.trim();
+    const nameInput = this.querySelector('input[name="comment-name"]');
+    const emailInput = this.querySelector('input[name="comment-email"]');
+    const commenter = nameInput.value.trim();
+    const email = emailInput.value.trim();
+
+    if (!comment || !commenter || !email) {
+        showToast('Please fill all required fields.', 'danger');
+        btn.disabled = false;
+        btn.textContent = originalText;
+        return;
+    }
+
+    localStorage.setItem('commenterName', commenter);
+    localStorage.setItem('commenterEmail', email);
+
+    try {
+        let res;
+        if (!replyTo || replyToType === 'comment') {
+            // Top-level comment or reply to comment
+            const payload = {
+                post_id: blogId,
+                post_title: postTitle,
+                comment,
+                commenter,
+                email,
+                in_reply_to: replyTo || 'no'
+            };
+            res = await fetch('/comment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        } else if (replyToType === 'thread') {
+            // Reply to a thread comment
+            const payload = {
+                comment_id: replyTo,
+                thread_comment: comment,
+                thread_commenter: commenter,
+                thread_email: email
+            };
+            res = await fetch('/comment_thread', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+        }
+
+        if (res && res.ok) {
+            showToast('Comment submitted!', 'success');
+            this.reset();
+            replyTo = null;
+            replyToType = 'comment';
+            loadComments();
+            // Refill name/email after reset if hidden
+            nameInput.value = commenter;
+            emailInput.value = email;
+            if (nameInput && emailInput && commenter && email) {
+                nameInput.parentElement.style.display = 'none';
+                emailInput.parentElement.style.display = 'none';
+            }
+        } else {
+            const data = await res.json();
+            showToast(data.message || 'Error submitting comment.', 'danger');
+        }
+    } catch (err) {
+        showToast('Network error.', 'danger');
+    }
+    btn.disabled = false;
+    btn.textContent = originalText;
+});
+
+let currentPage = 1;
+const commentsPerPage = 5;
+
+function loadComments(page = 1) {
+    fetch(`/comments/${blogId}?page=${page}&limit=${commentsPerPage}`)
+      .then(res => res.json())
+      .then(data => {
+        const comments = data.comments;
+        const total = data.total;
+        const container = document.querySelector('.blog-details-contents');
+        let html = '';
+        if (!comments || comments.length === 0) {
+            html = `<h3>No comments on post yet</h3>`;
+        } else {
+            html = `<h3>${total} Comment${total !== 1 ? 's' : ''}</h3>`;
+            comments.forEach(c => {
+                html += `
+                <div class="blog-details-comment${c.in_reply_to && c.in_reply_to !== 'no' ? ' reply' : ''}">
+                    <div class="blog-details-comment-thumb">
+                        <img src="/images/add-image.png" alt="">
+                    </div>
+                    <div class="blog-details-comment-content">
+                        <h2>${c.commenter}</h2>
+                        <p>${c.comment}</p>
+                        <div class="blog-details-comment-reply">
+                            <span>${new Date(c.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                           <a href="#" class="reply-link" data-id="${c.id}" data-type="thread" data-name="${c.commenter}"><i class="bi bi-reply"></i>Reply</a>
+                        </div>
+                        <div class="thread-comments" id="thread-comments-${c.id}"></div>
+                    </div>
+                </div>
+                `;
+            });
+
+            // Pagination controls
+            const totalPages = Math.ceil(total / commentsPerPage);
+            if (totalPages > 1) {
+                html += `<nav class="comment-pagination"><ul class="pagination">`;
+                for (let i = 1; i <= totalPages; i++) {
+                    html += `<li class="page-item${i === page ? ' active' : ''}">
+                        <a href="#" class="page-link" data-page="${i}">${i}</a>
+                    </li>`;
+                }
+                html += `</ul></nav>`;
+            }
+        }
+        container.innerHTML = html;
+
+        // Add reply click handlers for main comments
+        container.querySelectorAll('.reply-link').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                replyTo = this.dataset.id;
+                replyToType = this.dataset.type || 'comment';
+                document.getElementById('comment-msg-box').focus();
+                showToast(`Replying to ${this.dataset.name}`, 'success');
+            };
+        });
+
+        // Add pagination click handlers
+        container.querySelectorAll('.page-link').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                const page = parseInt(this.dataset.page, 10);
+                if (page !== currentPage) {
+                    currentPage = page;
+                    loadComments(page);
+                }
+            };
+        });
+
+        // Load thread replies for each comment
+        comments.forEach(c => loadThreadComments(c.id));
+      });
+}
+
+function loadThreadComments(commentId, page = 1, limit = 3) {
+    fetch(`/comment_thread/${commentId}?page=${page}&limit=${limit}`)
+      .then(res => res.json())
+      .then(data => {
+        const threads = data.threads;
+        const total = data.total;
+        const threadDiv = document.getElementById(`thread-comments-${commentId}`);
+        if (!threadDiv) return;
+        let html = '';
+        threads.forEach(t => {
+            html += `
+            <div class="blog-details-comment reply thread">
+                <div class="blog-details-comment-thumb">
+                    <img src="/images/add-image.png" alt="">
+                </div>
+                <div class="blog-details-comment-content">
+                    <h2>${t.thread_commenter || 'Anonymous'}</h2>
+                    <p>${t.thread_comment}</p>
+                    <div class="blog-details-comment-reply">
+                        <span>${new Date(t.created_at).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+                      <a href="#" class="reply-link"
+   data-id="${t.id}"
+   data-type="thread"
+   data-name="${t.thread_commenter || 'Anonymous'}"
+   data-comment-id="${commentId}">
+   <i class="bi bi-reply"></i>Reply
+</a>
+                    </div>
+                </div>
+            </div>
+            `;
+        });
+
+		 const totalPages = Math.ceil(total / limit);
+        if (totalPages > 1) {
+            html += `<nav class="comment-pagination"><ul class="pagination">`;
+            for (let i = 1; i <= totalPages; i++) {
+                html += `<li class="page-item${i === page ? ' active' : ''}">
+                    <a href="#" class="page-link" data-page="${i}" data-comment="${commentId}">${i}</a>
+                </li>`;
+            }
+            html += `</ul></nav>`;
+        }
+
+
+        threadDiv.innerHTML = html;
+threadDiv.querySelectorAll('.reply-link').forEach(link => {
+    link.onclick = function(e) {
+        e.preventDefault();
+        if (this.dataset.type === 'thread') {
+            replyTo = this.dataset.commentId; 
+            replyToType = 'thread';
+        } else {
+            replyTo = this.dataset.id;
+            replyToType = this.dataset.type || 'comment';
+        }
+        document.getElementById('comment-msg-box').focus();
+        showToast(`Replying to ${this.dataset.name}`, 'success');
+    };
+});
+     threadDiv.querySelectorAll('.page-link').forEach(link => {
+            link.onclick = function(e) {
+                e.preventDefault();
+                const page = parseInt(this.dataset.page, 10);
+                const commentId = this.dataset.comment;
+                loadThreadComments(commentId, page, limit);
+            };
+        });
+      });
+}
+
+// Initial load
+loadComments();
+</script>
+
+<script>
+fetch('/social_links')
+  .then(res => res.json())
+  .then(socialLinks => {
+    const icons = {
+      facebook: 'fab fa-facebook-f',
+      twitter: 'fab fa-twitter',
+      linkedin: 'fab fa-linkedin-in',
+      instagram: 'fab fa-instagram',
+      youtube: 'fab fa-youtube',
+      whatsapp: 'fab fa-whatsapp',
+      telegram: 'fab fa-telegram-plane',
+      github: 'fab fa-github',
+	  tiktok: 'fab fa-tiktok',
+
+    };
+    const ul = document.getElementById('footer-social-links');
+    ul.innerHTML = '';
+    socialLinks.forEach(s => {
+      const icon = icons[s.platform.toLowerCase()] || 'fas fa-link';
+      ul.innerHTML += `
+        <li>
+          <a href="${s.url || '#'}" target="_blank" rel="noopener">
+            <i class="${icon}"></i>
+          </a>
+        </li>
+      `;
+    });
+  })
+  .catch(() => {
+    const ul = document.getElementById('footer-social-links');
+	ul.innerHTML = '<li><a href="#"><i class="fas fa-link"></i></a></li>';
+	showToast('Failed to load social links', 'danger');
+  });
+</script>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+const socket = io();
+socket.on('new_comment', function(data) {
+    if (data.type === 'comment' && data.comment.post_id == blogId) {
+        loadComments(currentPage);
+    }
+    if (data.type === 'thread') {
+        loadThreadComments(data.comment.comment_id);
+    }
+});
+</script>
+</body>
+
+</html>
